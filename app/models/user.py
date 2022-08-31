@@ -46,7 +46,7 @@ class Recipe(db.Model):
     __tablename__= 'recipes'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.string(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     servings = db.Column(db.Integer, nullable=False)
@@ -76,11 +76,11 @@ class Recipe(db.Model):
             },
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            'ingredients': [ingredient.ingredient_to_dict() for ingredient in self.ingredients]
+            'ingredients': [ingredient.ingredient_to_dict() for ingredient in self.ingredients],
             'instructions': [instruction.instruction_to_dict() for instruction in self.instructions]
         }
 
-class Ingredient(db.model):
+class Ingredient(db.Model):
     __tablename__="ingredients"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -93,11 +93,11 @@ class Ingredient(db.model):
     def ingredient_to_dict(self):
         return {
             'id': self.id,
-            'ingredient': self.ingredient
+            'ingredient': self.ingredient,
             'recipeId': self.recipe_id
         }
 
-class Instruction(db.model):
+class Instruction(db.Model):
     __tablename__="instructions"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -110,7 +110,7 @@ class Instruction(db.model):
     def instruction_to_dict(self):
         return {
             'id': self.id,
-            'instruction': self.instruction
+            'instruction': self.instruction,
             'recipeId': self.recipe_id
         }
 
