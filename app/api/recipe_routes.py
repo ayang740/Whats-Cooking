@@ -21,11 +21,18 @@ def get_all_recipes():
     response = {'all_recipes': [recipe.post_to_dict() for recipe in all_recipes]}
     return response
 
-@recipe_routes.post('/')
+@recipe_routes.get('/<int:id>')
+def get_one_recipe(id):
+    one_recipe = Recipe.query.get_or_404(id)
+    response = {'one_recipe': one_recipe}
+    return response
 
+@recipe_routes.post('/')
+@login_required
 def post_recipe():
     form = RecipeForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         data = form.data
         new_recipe = Recipe(
@@ -44,3 +51,32 @@ def post_recipe():
     # Return the validation errors, and put 403 at end
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+
+@recipe_routes.put('/<int:id>')
+# @login_required
+def edit_recipe(id):
+    form = RecipeForm()
+    recipe = Recipe.query.get_or_404(id)
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+        recipe.name = data['name']
+        recipe.image_url = data['imageUrl']
+        recipe.description = data['description']
+        recipe.servings = data['servings']
+        recipe.active_time = data['activeTime']
+        recipe.total_time = data['totalTime']
+        db.session.commit()
+        return {'recipe': recipe.post_to_dict()}
+
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+
+@recipe_routes.delete('/<int:id>')
+@login_required
+def delete_recipe(id):
+    recipe = Recipe.query.get_or_404(id)
+    db.session.delete(recipe)
+    db.session.commit()
+    return {'message': 'Successfully deleted'}
