@@ -8,6 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import RecipeList from './components/recipes/RecipeList';
+import { getAllRecipes } from './store/recipes';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -16,6 +18,7 @@ function App() {
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
+      await dispatch(getAllRecipes());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -43,6 +46,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        <Route path='/recipes' exact={true}>
+          <RecipeList />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
