@@ -81,22 +81,22 @@ def delete_recipe(id):
     db.session.commit()
     return {'message': 'Successfully deleted'}
 
-@recipe_routes.post('/ingredients')
-@login_required
-def post_recipe_ingredient():
-    form = IngredientForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+# @recipe_routes.post('/ingredients')
+# @login_required
+# def post_recipe_ingredient():
+#     form = IngredientForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        data = form.data
-        new_ingredient = Ingredient(
-            ingredient = data['ingredient'],
-            recipe_id = data[]
-        )
-        db.session.add(new_ingredient)
-        db.session.commit()
-        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
+#     if form.validate_on_submit():
+#         data = form.data
+#         new_ingredient = Ingredient(
+#             ingredient = data['ingredient'],
+#             recipe_id = data[]
+#         )
+#         db.session.add(new_ingredient)
+#         db.session.commit()
+#         return {'new_ingredient': new_ingredient.ingredient_to_dict()}
 
-    # Return the validation errors, and put 403 at end
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+#     # Return the validation errors, and put 403 at end
+#     else:
+#         return {'errors': validation_errors_to_error_messages(form.errors)}, 403
