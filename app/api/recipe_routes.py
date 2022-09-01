@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import User, Recipe, db, Ingredient, Instruction
-from app.forms import RecipeForm
+from app.forms import RecipeForm, IngredientForm, InstructionForm
 
 recipe_routes = Blueprint('recipes', __name__)
 
@@ -80,3 +80,23 @@ def delete_recipe(id):
     db.session.delete(recipe)
     db.session.commit()
     return {'message': 'Successfully deleted'}
+
+@recipe_routes.post('/ingredients')
+@login_required
+def post_recipe_ingredient():
+    form = IngredientForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+        new_ingredient = Ingredient(
+            ingredient = data['ingredient'],
+            recipe_id = data[]
+        )
+        db.session.add(new_ingredient)
+        db.session.commit()
+        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
+
+    # Return the validation errors, and put 403 at end
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
