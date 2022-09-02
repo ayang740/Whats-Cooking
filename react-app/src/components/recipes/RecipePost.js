@@ -38,7 +38,7 @@ export default function RecipePost() {
             history.push('/recipes')
         }
     }
-    console.log(errors)
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
