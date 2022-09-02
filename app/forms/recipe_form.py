@@ -35,5 +35,3 @@ class RecipeForm(FlaskForm):
     servings = IntegerField('servings', validators=[DataRequired(), servings_amount])
     activeTime = IntegerField('activeTime', validators=[times])
     totalTime = IntegerField('totalTime', validators=[times])
-    # ingredients = FieldList(FormField(IngredientForm), min_entries=1)
-    # instructions = FieldList(FormField(InstructionForm), min_entries=1)
