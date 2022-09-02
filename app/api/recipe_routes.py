@@ -29,15 +29,26 @@ def get_one_recipe(id):
     response = {'one_recipe': one_recipe}
     return response
 
+def instruction_length(instruction):
+    if len(instruction) < 10:
+        raise Exception('Must be at least 10 characters long')
+    else:
+        return True
+
+def ingredient_length(ingredient):
+    if len(ingredient) < 3 or len(ingredient) > 50:
+        raise Exception('Must be between 3 and 50 characters')
+    else:
+        return True
+
 #post recipe
 @recipe_routes.post('/')
-@login_required
+# @login_required
 def post_recipe():
-    form = RecipeForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if form.validate_on_submit():
-        data = form.data
+    recipe_form = RecipeForm()
+    recipe_form['csrf_token'].data = request.cookies['csrf_token']
+    if recipe_form.validate_on_submit():
+        data = recipe_form.data
         new_recipe = Recipe(
             name = data['name'],
             image_url = data['imageUrl'],
@@ -45,15 +56,49 @@ def post_recipe():
             servings = data['servings'],
             active_time = data['activeTime'],
             total_time = data['totalTime'],
-            user_id = current_user.id
+            user_id = 1
         )
         db.session.add(new_recipe)
         db.session.commit()
+
+        recipe_data = request.json
+        ingredients_data = recipe_data["ingredients"]
+        instructions_data = recipe_data["instructions"]
+
+        if (len(ingredients_data) > 0 and len(instructions_data) > 0):
+            for ingredient_data in ingredients_data:
+                ingredient_validator = ingredient_length(ingredient_data)
+                if ingredient_validator:
+                    new_ingredient = Ingredient(
+                        ingredient = ingredient_data,
+                        recipe_id = new_recipe.id
+                    )
+                    db.session.add(new_ingredient)
+                else:
+                    return ingredient_validator
+            
+            for instruction_data in instructions_data:
+                instruction_validator = instruction_length(instruction_data)
+                if instruction_validator:
+                    new_instruction = Instruction(
+                        instruction = instruction_data,
+                        recipe_id = new_recipe.id
+                    )
+                    db.session.add(new_instruction)
+                else:
+                    return instruction_validator
+
+            db.session.commit()
+
+        else:
+            db.session.delete(new_recipe)
+            return {'errors': "Please include ingredients and instructions."}, 403 
+        print(new_recipe.ingredients)
         return {'new_recipe': new_recipe.post_to_dict()}
 
     # Return the validation errors, and put 403 at end
     else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+        return {'errors': validation_errors_to_error_messages(recipe_form.errors)}, 403
 
 #edit recipe
 @recipe_routes.put('/<int:id>')
@@ -86,44 +131,3 @@ def delete_recipe(id):
     db.session.commit()
     return {'message': 'Successfully deleted'}
 
-#post recipe ingredient
-@recipe_routes.post('/ingredients')
-@login_required
-def post_recipe_ingredient():
-    form = IngredientForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if form.validate_on_submit():
-        data = form.data
-        new_ingredient = Ingredient(
-            ingredient = data['ingredient'],
-            recipe_id = data['recipeId']
-        )
-        db.session.add(new_ingredient)
-        db.session.commit()
-        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
-
-    # Return the validation errors, and put 403 at end
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
-
-#post recipe instruction
-@recipe_routes.post('/instructions')
-@login_required
-def post_recipe_instruction():
-    form = InstructionForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if form.validate_on_submit():
-        data = form.data
-        new_instruction = Instruction(
-            instruction = data['instruction'],
-            recipe_id = data['recipeId']
-        )
-        db.session.add(new_ingredient)
-        db.session.commit()
-        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
-
-    # Return the validation errors, and put 403 at end
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
