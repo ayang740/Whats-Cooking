@@ -2,6 +2,8 @@ const LOAD_RECIPES = '/recipes/all'
 const NEW_RECIPE = '/recipes/new'
 const UPDATE_RECIPE = '/recipes/update'
 const DELETE_RECIPE = '/recipes/delete'
+const NEW_INGREDIENT = '/recipes/ingredient'
+const NEW_INSTRUCTION = 'recipes/instruction'
 
 const loadRecipes = (recipes) => ({
     type: LOAD_RECIPES,
@@ -18,6 +20,16 @@ const updateRecipe = (recipe) => ({
 const deleteRecipe = (id) => ({
     type: DELETE_RECIPE,
     id
+})
+
+const createIngredient = (ingredient) => ({
+    type: NEW_INGREDIENT,
+    ingredient
+})
+
+const createInstruction = (instruction) => ({
+    type: NEW_INSTRUCTION,
+    instruction
 })
 
 export const getAllRecipes = () => async (dispatch) => {
@@ -77,6 +89,32 @@ export const removeRecipe = (id) => async dispatch => {
     }
 }
 
+export const createNewIngredient = (payload) => async dispatch => {
+    const response = await fetch(`/api/recipes/ingredients`, {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const ingredient = await response.json()
+        dispatch(createIngredient(ingredient))
+        return ingredient
+    }
+}
+
+export const createNewInstruction = (payload) => async dispatch => {
+    const response = await fetch(`/api/recipes/instructions`, {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const instruction = await response.json()
+        dispatch(createInstruction(instruction))
+        return instruction
+    }
+}
+
 const initialState = { normalizedRecipes: {} }
 
 export default function recipesReducer(state = initialState, action) {
@@ -99,6 +137,14 @@ export default function recipesReducer(state = initialState, action) {
         case DELETE_RECIPE:
             newState = JSON.parse(JSON.stringify(state))
             delete newState.normalizedRecipes[action.id]
+            return newState
+        case NEW_INGREDIENT:
+            newState = JSON.parse(JSON.stringify(state))
+            newState.normalizedRecipes[action.ingredient.new_ingredient.id] = action.ingredient.new_ingredient
+            return newState
+        case NEW_INSTRUCTION:
+            newState = JSON.parse(JSON.stringify(state))
+            newState.normalizedRecipes[action.instruction.new_instruction.id] = action.instruction.new_instruction
             return newState
         default:
             return state
