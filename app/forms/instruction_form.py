@@ -10,4 +10,4 @@ def instruction_length(form, field):
 
 class InstructionForm(FlaskForm):
     instruction = StringField('instruction', validators=[DataRequired(), instruction_length])
-    recipeId = IntegerField('recipeId', validators=[DataRequired()])
+

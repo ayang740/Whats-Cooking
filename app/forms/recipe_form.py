@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, TextField
+from wtforms import StringField, IntegerField, TextField, FieldList, FormField
 from wtforms.validators import DataRequired, ValidationError, URL
 from app.models import Recipe
+from .ingredient_form import IngredientForm
+from .instruction_form import InstructionForm
 
 def name_length(form, field):
     name = field.data
@@ -33,3 +35,5 @@ class RecipeForm(FlaskForm):
     servings = IntegerField('servings', validators=[DataRequired(), servings_amount])
     activeTime = IntegerField('activeTime', validators=[times])
     totalTime = IntegerField('totalTime', validators=[times])
+    ingredients = FieldList(FormField(IngredientForm))
+    instructions = FieldList(FormField(IngredientForm))

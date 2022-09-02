@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom"
 import { createNewRecipe } from "../../store/recipes"
 import RecipeIngredientPost from "./RecipeIngredientPost"
+import RecipeInstructionPost from "./RecipeInstructionPost"
 
 export default function RecipePost() {
     const sessionUser = useSelector(state => state.session.user)
@@ -90,7 +91,8 @@ export default function RecipePost() {
                         onChange={(e) => setTotalTime(e.target.value)}
                     />
                 </label>
-                {/* <RecipeIngredientPost allRecipes={allRecipes}/> */}
+                <RecipeIngredientPost allRecipes={allRecipes} />
+                <RecipeInstructionPost allRecipes={allRecipes} />
                 <button type="submit">Add Recipe</button>
             </form>
         </div>

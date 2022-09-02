@@ -22,7 +22,7 @@ export default function RecipeIngredientPost({allRecipes}) {
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label> Ingredient:
                     <input 
                         type="text"

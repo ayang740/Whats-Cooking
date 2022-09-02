@@ -31,13 +31,13 @@ def get_one_recipe(id):
 
 #post recipe
 @recipe_routes.post('/')
-@login_required
+# @login_required
 def post_recipe():
-    form = RecipeForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    recipe_form = RecipeForm()
+    recipe_form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        data = form.data
+    if recipe_form.validate_on_submit():
+        data = recipe_form.data
         new_recipe = Recipe(
             name = data['name'],
             image_url = data['imageUrl'],
@@ -45,15 +45,22 @@ def post_recipe():
             servings = data['servings'],
             active_time = data['activeTime'],
             total_time = data['totalTime'],
-            user_id = current_user.id
+            user_id = 1
         )
         db.session.add(new_recipe)
         db.session.commit()
+        print("!!!!")
+        print(data)
+        print(data['ingredients'])
+        print(data['instructions'])
+        print(request.data)
+        
+
         return {'new_recipe': new_recipe.post_to_dict()}
 
     # Return the validation errors, and put 403 at end
     else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+        return {'errors': validation_errors_to_error_messages(recipe_form.errors)}, 403
 
 #edit recipe
 @recipe_routes.put('/<int:id>')
@@ -86,44 +93,44 @@ def delete_recipe(id):
     db.session.commit()
     return {'message': 'Successfully deleted'}
 
-#post recipe ingredient
-@recipe_routes.post('/ingredients')
-@login_required
-def post_recipe_ingredient():
-    form = IngredientForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+# #post recipe ingredient
+# @recipe_routes.post('/ingredients')
+# @login_required
+# def post_recipe_ingredient():
+#     form = IngredientForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        data = form.data
-        new_ingredient = Ingredient(
-            ingredient = data['ingredient'],
-            recipe_id = data['recipeId']
-        )
-        db.session.add(new_ingredient)
-        db.session.commit()
-        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
+#     if form.validate_on_submit():
+#         data = form.data
+#         new_ingredient = Ingredient(
+#             ingredient = data['ingredient'],
+#             recipe_id = data['recipeId']
+#         )
+#         db.session.add(new_ingredient)
+#         db.session.commit()
+#         return {'new_ingredient': new_ingredient.ingredient_to_dict()}
 
-    # Return the validation errors, and put 403 at end
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+#     # Return the validation errors, and put 403 at end
+#     else:
+#         return {'errors': validation_errors_to_error_messages(form.errors)}, 403
 
-#post recipe instruction
-@recipe_routes.post('/instructions')
-@login_required
-def post_recipe_instruction():
-    form = InstructionForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+# #post recipe instruction
+# @recipe_routes.post('/instructions')
+# @login_required
+# def post_recipe_instruction():
+#     form = InstructionForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        data = form.data
-        new_instruction = Instruction(
-            instruction = data['instruction'],
-            recipe_id = data['recipeId']
-        )
-        db.session.add(new_ingredient)
-        db.session.commit()
-        return {'new_ingredient': new_ingredient.ingredient_to_dict()}
+#     if form.validate_on_submit():
+#         data = form.data
+#         new_instruction = Instruction(
+#             instruction = data['instruction'],
+#             recipe_id = data['recipeId']
+#         )
+#         db.session.add(new_instruction)
+#         db.session.commit()
+#         return {'new_instruction': new_instruction.instruction_to_dict()}
 
-    # Return the validation errors, and put 403 at end
-    else:
-        return {'errors': validation_errors_to_error_messages(form.errors)}, 403
+#     # Return the validation errors, and put 403 at end
+#     else:
+#         return {'errors': validation_errors_to_error_messages(form.errors)}, 403
