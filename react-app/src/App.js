@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import RecipeList from './components/recipes/RecipeList';
 import { getAllRecipes } from './store/recipes';
 import SingleRecipe from './components/recipes/SingleRecipe';
+import RecipePost from './components/recipes/RecipePost';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -52,6 +53,9 @@ function App() {
         </Route>
         <Route path='/recipes/:recipeId' exact={true}>
           <SingleRecipe />
+        </Route>
+        <Route path='/newrecipe' exact={true}>
+          <RecipePost />
         </Route>
       </Switch>
     </BrowserRouter>
