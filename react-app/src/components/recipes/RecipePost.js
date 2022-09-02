@@ -42,6 +42,9 @@ export default function RecipePost() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <ul>
+                    {!!errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
                 <label> Name:
                     <input
                         type="text"
@@ -87,7 +90,7 @@ export default function RecipePost() {
                         onChange={(e) => setTotalTime(e.target.value)}
                     />
                 </label>
-                <RecipeIngredientPost allRecipes={allRecipes}/>
+                {/* <RecipeIngredientPost allRecipes={allRecipes}/> */}
                 <button type="submit">Add Recipe</button>
             </form>
         </div>
