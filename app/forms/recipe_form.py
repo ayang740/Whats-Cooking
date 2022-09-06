@@ -26,6 +26,9 @@ def times(form, field):
 
     if (activeTime and activeTime < 1) or (totalTime and totalTime < 1):
         raise ValidationError('Time cannot be less than 1 minute')
+    
+    if(activeTime > totalTime):
+        raise ValidationError('Active time cannot be greater than total time')
 
 
 class RecipeForm(FlaskForm):

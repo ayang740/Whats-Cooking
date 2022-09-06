@@ -12,6 +12,7 @@ import RecipeList from './components/recipes/RecipeList';
 import { getAllRecipes } from './store/recipes';
 import SingleRecipe from './components/recipes/SingleRecipe';
 import RecipePost from './components/recipes/RecipePost';
+import RecipeEdit from './components/recipes/RecipeEdit';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -54,9 +55,12 @@ function App() {
         <Route path='/recipes/:recipeId' exact={true}>
           <SingleRecipe />
         </Route>
-        <Route path='/newrecipe' exact={true}>
+        <ProtectedRoute path='/newrecipe' exact={true}>
           <RecipePost />
-        </Route>
+        </ProtectedRoute>
+        <ProtectedRoute path='/recipes/:recipeId/edit' exact={true}>
+          <RecipeEdit />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
