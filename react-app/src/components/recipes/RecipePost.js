@@ -2,12 +2,10 @@ import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom"
 import { createNewRecipe } from "../../store/recipes"
-import RecipeIngredientPost from "./RecipeIngredientPost"
-import RecipeInstructionPost from "./RecipeInstructionPost"
+
 
 export default function RecipePost() {
     const sessionUser = useSelector(state => state.session.user)
-    const allRecipes = useSelector(state => Object.values(state.recipes.normalizedRecipes))
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -17,6 +15,8 @@ export default function RecipePost() {
     const [servings, setServings] = useState('')
     const [activeTime, setActiveTime] = useState('')
     const [totalTime, setTotalTime] = useState('')
+    const [ingredients, setIngredients] = useState([{ ingredient: '' }])
+    const [instructions, setInstructions] = useState([{ instruction: '' }])
     const [errors, setErrors] = useState([])
 
     const handleSubmit = async (e) => {
@@ -30,6 +30,8 @@ export default function RecipePost() {
             activeTime,
             totalTime,
             user_id: sessionUser.id,
+            ingredients,
+            instructions
         }
 
         const badData = await dispatch(createNewRecipe(payload))
@@ -40,9 +42,47 @@ export default function RecipePost() {
         }
     }
 
+    const handleIngredients = (index, e) => {
+        let data = [...ingredients];
+        data[index][e.target.name] = e.target.value
+        setIngredients(data)
+    }
+
+    const handleAddIngredients = (e) => {
+        e.preventDefault()
+        let newIngredient = { ingredient: "" }
+        setIngredients([...ingredients, newIngredient])
+    }
+
+    const handleRemoveIngredients = (index, e) => {
+        e.preventDefault()
+        let data = [...ingredients];
+        data.splice(index, 1)
+        setIngredients(data)
+    }
+
+    const handleInstructions = (index, e) => {
+        let data = [...instructions];
+        data[index][e.target.name] = e.target.value
+        setInstructions(data)
+    }
+
+    const handleAddInstructions = (e) => {
+        e.preventDefault()
+        let newInstructions = { instruction: "" }
+        setInstructions([...instructions, newInstructions])
+    }
+
+    const handleRemoveInstructions = (index, e) => {
+        e.preventDefault()
+        let data = [...instructions];
+        data.splice(index, 1)
+        setInstructions(data)
+    }
+
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <ul>
                     {!!errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
@@ -51,7 +91,7 @@ export default function RecipePost() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        required
+                        
                     />
                 </label>
                 <label> Image: 
@@ -59,14 +99,14 @@ export default function RecipePost() {
                         type="text"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
-                        required
+                        
                     />
                 </label>
                 <label> Description:
                     <textarea 
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        required
+                        
                     />
                 </label>
                 <label> Servings:
@@ -74,7 +114,7 @@ export default function RecipePost() {
                         type="number"
                         value={servings}
                         onChange={(e) => setServings(e.target.value)}
-                        required
+                        
                     />
                 </label>
                 <label> Active Time:
@@ -91,9 +131,43 @@ export default function RecipePost() {
                         onChange={(e) => setTotalTime(e.target.value)}
                     />
                 </label>
-                <RecipeIngredientPost allRecipes={allRecipes} />
-                <RecipeInstructionPost allRecipes={allRecipes} />
-                <button type="submit">Add Recipe</button>
+                <div>
+                    {ingredients.map((input, index) => {
+                        return(
+                            <div key={index}>
+                                <label> Ingredient: 
+                                    <input 
+                                        type="text"
+                                        name="ingredient"
+                                        value={input.ingredient}
+                                        onChange={(e) => handleIngredients(index, e)}
+                                    />
+                                    <button onClick={(e) => handleRemoveIngredients(index, e)}>Remove</button>
+                                </label>
+                            </div>
+                        )
+                    })}
+                    <button onClick={handleAddIngredients}>Add another ingredient</button>
+                </div>
+                <div>
+                    {instructions.map((input, index) => {
+                        return(
+                            <div key={index}>
+                                <label> Step {index + 1}: 
+                                    <input 
+                                        type="text"
+                                        name="instruction"
+                                        value={input.instruction}
+                                        onChange={(e) => handleInstructions(index, e)}
+                                    />
+                                    <button onClick={(e) => handleRemoveInstructions(index, e)}>Remove</button>
+                                </label>
+                            </div>
+                        )
+                    })}
+                    <button onClick={handleAddInstructions}>Add another step</button>
+                </div>
+                <button type="submit" onClick={handleSubmit}>Add Recipe</button>
             </form>
         </div>
     )

@@ -31,13 +31,13 @@ def get_one_recipe(id):
 
 def instruction_length(instruction):
     if len(instruction) < 10:
-        raise Exception('Must be at least 10 characters long')
+        raise Exception(['Must be at least 10 characters long'])
     else:
         return True
 
 def ingredient_length(ingredient):
     if len(ingredient) < 3 or len(ingredient) > 50:
-        raise Exception('Must be between 3 and 50 characters')
+        raise Exception(['Must be between 3 and 50 characters'])
     else:
         return True
 
@@ -92,7 +92,7 @@ def post_recipe():
 
         else:
             db.session.delete(new_recipe)
-            return {'errors': "Please include ingredients and instructions."}, 403 
+            return {'errors': ["Please include ingredients and instructions."]}, 403 
         print(new_recipe.ingredients)
         return {'new_recipe': new_recipe.post_to_dict()}
 

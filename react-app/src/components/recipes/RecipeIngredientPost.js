@@ -6,7 +6,7 @@ export default function RecipeIngredientPost({allRecipes}) {
     const dispatch = useDispatch
     console.log(allRecipes[allRecipes.length-1].id)
     const [ingredient, setIngredient] = useState('')
-    const [errors, setErrors] = useState([])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()

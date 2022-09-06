@@ -1,0 +1,112 @@
+.single-recipe-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50%;
+    border-bottom: 1px solid rgb(219, 219, 200);
+}
+
+.single-recipe-header-left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    color: rgb(49, 49, 49);
+}
+
+.single-recipe-header-name {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.single-recipe-header-author {
+    font-size: 14px;
+}
+
+.single-recipe-header-right {
+    width: 50%;
+    height: 50%;
+}
+
+.single-recipe-header-image {
+    width: 100%;
+    height: 100%;
+}
+
+.single-recipe-middle {
+    width: 60%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20%;
+    margin-top: 2rem;
+}
+
+.single-recipe-middle-container{
+    border-top: 2px solid rgb(219, 219, 200);
+}
+
+.single-recipe-times {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    justify-content: space-evenly;
+    padding-top: 1rem;
+}
+
+.single-recipe-time {
+    display: flex;
+    flex-direction: row;
+}
+
+.single-recipe-description {
+    padding-top: 1rem;
+    font-size: 16px;
+}
+
+.single-recipe-ingredients-and-instructions {
+    width: 60%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20%;
+    margin-top: 2rem;
+}
+
+.single-recipe-ingredients-header {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(219, 219, 200);
+    padding-bottom: 1rem;
+}
+
+.single-recipe-servings {
+    background-color: rgb(219, 219, 200);
+    margin: 1rem 0;
+    padding: 0.5rem 0.5rem;
+    width: 73px;
+}
+
+.single-recipe-ingredients {
+    padding-bottom: 1rem;
+}
+
+.single-recipe-instructions-header {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(219, 219, 200);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.single-recipe-instructions {
+    padding-bottom: 2rem;
+    font-size: 16px;
+}
+
+.single-recipe-instructions-step {
+    padding-bottom: 1rem;
+    font-weight: bold;
+}

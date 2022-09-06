@@ -1,5 +1,4 @@
 /* TODO Add site wide styles */
-img {
-    height: 300px;
-    width: 300px;
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
