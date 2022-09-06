@@ -52,8 +52,8 @@ export const createNewRecipe = (payload) => async (dispatch) => {
     }
 }
 
-export const editRecipe = (payload) => async dispatch => {
-    const response = await fetch(`/api/recipes/${payload.id}`, {
+export const editRecipe = (payload, recipeId) => async dispatch => {
+    const response = await fetch(`/api/recipes/${recipeId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

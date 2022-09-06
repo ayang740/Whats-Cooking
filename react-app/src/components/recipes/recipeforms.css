@@ -1,0 +1,131 @@
+.recipe-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-form-title {
+    color: rgb(249, 63, 35);
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.recipe-form-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    width: 60%;
+    margin: 0 20%;
+}
+
+.recipe-form-errors {
+    color: rgb(249, 63, 35);
+    list-style: none;
+}
+
+.recipe-form-label {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    justify-content: space-between;
+    color: rgb(30, 30, 30);
+}
+
+.recipe-form-input {
+    border-radius: 5px;
+    padding: 6px;
+    width: 200px;
+    font-size: 20px;
+    border: 1px solid rgb(30, 30, 30);
+    padding-left: 20px;
+}
+
+.recipe-form-input-textarea {
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 70%;
+    height: 200px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid rgb(30, 30, 30);
+    resize: none;
+}
+
+.recipe-form-buttons {
+    display: block;
+    width: 50%;
+    margin: auto;
+}
+
+.recipe-form-submit {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+    border: thin solid 	rgb(30, 30, 30);
+    margin: 20px auto;
+    margin-right: 30px;
+}
+
+.recipe-form-submit:hover {
+    background-color: rgb(249, 63, 35);
+}
+
+.recipe-form-cancel {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+    border: thin solid 	rgb(30, 30, 30);
+    margin: 20px auto;
+    margin-right: 30px;
+}
+
+.recipe-form-cancel:hover {
+    background-color: rgb(249, 63, 35);
+}
+
+.recipe-form-ingredients {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-form-instructions {
+    display: flex;
+    flex-direction: column;
+}
+.recipe-form-input-add-container{
+    display: flex;
+    justify-content: center;
+}
+.recipe-form-input-add {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    padding: 10px;
+    width: 150px;
+    border-radius: 5px;
+    border: thin solid 	rgb(30, 30, 30);
+}
+
+.recipe-form-input-add:hover {
+    background-color: rgb(249, 63, 35);
+}
+
+.recipe-form-input-remove {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    padding: 10px;
+    width: 80px;
+    border-radius: 5px;
+    border: thin solid 	rgb(30, 30, 30);
+
+}
+
+.recipe-form-input-remove:hover {
+    background-color: rgb(249, 63, 35);
+}

@@ -1,4 +1,4 @@
-import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { useParams, Redirect, useHistory, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeRecipe } from '../../store/recipes';
 import './recipes.css'
@@ -74,7 +74,12 @@ export default function SingleRecipe() {
             </div>
             {sessionUser?.id === recipe?.userId &&
                 (
-                    <button onClick={deleteRecipe}>Delete Recipe</button>
+                    <div>
+                        <button onClick={deleteRecipe}>Delete Recipe</button>
+                        <NavLink to={`/recipes/${recipe.id}/edit`}>
+                            <div>Edit Recipe</div>
+                        </NavLink>
+                    </div>
                 )
             }
         </div>

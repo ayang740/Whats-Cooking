@@ -13,6 +13,7 @@
     height: 417px;
     background-color: white;
     margin: 1rem 1rem;
+    overflow-y: hidden;
 }
 
 .recipe-list-card-image {
@@ -89,6 +90,7 @@
 
 .single-recipe-middle-container{
     border-top: 2px solid rgb(219, 219, 200);
+    width: 100%;
 }
 
 .single-recipe-times {

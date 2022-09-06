@@ -56,7 +56,7 @@ def post_recipe():
             servings = data['servings'],
             active_time = data['activeTime'],
             total_time = data['totalTime'],
-            user_id = 1
+            user_id = current_user.id
         )
         db.session.add(new_recipe)
         db.session.commit()
@@ -93,7 +93,7 @@ def post_recipe():
         else:
             db.session.delete(new_recipe)
             return {'errors': ["Please include ingredients and instructions."]}, 403 
-        print(new_recipe.ingredients)
+ 
         return {'new_recipe': new_recipe.post_to_dict()}
 
     # Return the validation errors, and put 403 at end
@@ -107,7 +107,7 @@ def edit_recipe(id):
     form = RecipeForm()
     recipe = Recipe.query.get_or_404(id)
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    
     if form.validate_on_submit():
         data = form.data
         recipe.name = data['name']
@@ -117,6 +117,47 @@ def edit_recipe(id):
         recipe.active_time = data['activeTime']
         recipe.total_time = data['totalTime']
         db.session.commit()
+
+        recipe_data = request.json
+        ingredients_data = recipe_data["ingredients"]
+        instructions_data = recipe_data["instructions"]
+        print('!!!')
+        print(ingredients_data)
+        print(instructions_data)
+ 
+        
+        if (len(ingredients_data) > 0 and len(instructions_data) > 0):
+            recipe.ingredients = ingredients_data
+            recipe.instructions = instructions_data
+
+            for ingredient_data in ingredients_data:
+                ingredient_validator = ingredient_length(ingredient_data)
+                if ingredient_validator:
+                    new_ingredient = Ingredient(
+                        ingredient = ingredient_data,
+                        recipe_id = recipe.id
+                    )
+                    db.session.add(new_ingredient)
+                else:
+                    return ingredient_validator
+            
+            for instruction_data in instructions_data:
+                instruction_validator = instruction_length(instruction_data)
+                if instruction_validator:
+                    new_instruction = Instruction(
+                        instruction = instruction_data,
+                        recipe_id = recipe.id
+                    )
+                    db.session.add(new_instruction)
+                else:
+                    return instruction_validator
+
+            db.session.commit()
+
+        else:
+            db.session.delete(recipe)
+            return {'errors': ["Please include ingredients and instructions."]}, 403 
+
         return {'recipe': recipe.post_to_dict()}
 
     else:

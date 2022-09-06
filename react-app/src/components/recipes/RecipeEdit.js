@@ -1,23 +1,24 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from "react-router-dom"
-import { createNewRecipe } from "../../store/recipes"
+import { useHistory, useParams } from "react-router-dom"
+import { editRecipe } from "../../store/recipes"
 import './recipeforms.css'
 
-
-export default function RecipePost() {
+export default function RecipeEdit() {
     const sessionUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const history = useHistory()
+    const { recipeId } = useParams();
+    const recipe = useSelector(state => state.recipes.normalizedRecipes[recipeId])
 
-    const [name, setName] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-    const [description, setDescription] = useState('')
-    const [servings, setServings] = useState('')
-    const [activeTime, setActiveTime] = useState('')
-    const [totalTime, setTotalTime] = useState('')
-    const [ingredients, setIngredients] = useState([{ ingredient: '' }])
-    const [instructions, setInstructions] = useState([{ instruction: '' }])
+    const [name, setName] = useState(recipe.name)
+    const [imageUrl, setImageUrl] = useState(recipe.imageUrl)
+    const [description, setDescription] = useState(recipe.description)
+    const [servings, setServings] = useState(recipe.servings)
+    const [activeTime, setActiveTime] = useState(recipe.activeTime)
+    const [totalTime, setTotalTime] = useState(recipe.totalTime)
+    const [ingredients, setIngredients] = useState(recipe.ingredients)
+    const [instructions, setInstructions] = useState(recipe.instructions)
     const [errors, setErrors] = useState([])
 
     const ingredientNames = ingredients.map(ingredient => {
@@ -27,6 +28,9 @@ export default function RecipePost() {
     const instructionNames = instructions.map(instruction => {
         return instruction['instruction']
     })
+    console.log(ingredientNames)
+    console.log(instructionNames)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -43,21 +47,15 @@ export default function RecipePost() {
             instructions: instructionNames
         }
 
-        const badData = await dispatch(createNewRecipe(payload))
+        const badData = await dispatch(editRecipe(payload, recipeId))
         if (badData) {
             setErrors(badData)
         } else {
             setErrors([])
-            history.push('/recipes')
+            history.push(`/recipes/${recipe.id}`)
         }
     }
-
-    const handleCancel = (e) => {
-        e.preventDefault();
-        setErrors([]);
-        history.push('/recipes');
-    };
-
+    
     const handleIngredients = (index, e) => {
         let data = [...ingredients];
         data[index][e.target.name] = e.target.value
@@ -97,109 +95,93 @@ export default function RecipePost() {
     }
 
     return (
-        <div className="recipe-form-wrapper">
-            <div className="recipe-form-title">Add a New Recipe</div>
-            <form className="recipe-form-container">
-                <ul className="recipe-form-errors">
+        <div>
+            <form>
+                <ul>
                     {!!errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
-                <label className="recipe-form-label"> Name:
+                <label> Name:
                     <input
-                        className="recipe-form-input"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         
                     />
                 </label>
-                <label className="recipe-form-label"> Image: 
+                <label> Image: 
                     <input
-                        className="recipe-form-input"
                         type="text"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         
                     />
                 </label>
-                <label className="recipe-form-label"> Servings:
+                <label> Description:
+                    <textarea 
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        
+                    />
+                </label>
+                <label> Servings:
                     <input
-                        className="recipe-form-input"
                         type="number"
                         value={servings}
                         onChange={(e) => setServings(e.target.value)}
                         
                     />
                 </label>
-                <label className="recipe-form-label"> Active Time:
+                <label> Active Time:
                     <input
-                        className="recipe-form-input"
                         type="number"
                         value={activeTime}
                         onChange={(e) => setActiveTime(e.target.value)}
                     />
                 </label>
-                <label className="recipe-form-label"> Total Time: 
+                <label> Total Time: 
                     <input
-                        className="recipe-form-input"
                         type="number"
                         value={totalTime}
                         onChange={(e) => setTotalTime(e.target.value)}
                     />
                 </label>
-                <label className="recipe-form-label"> Description:
-                    <textarea 
-                        className="recipe-form-input-textarea"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        
-                    />
-                </label>
-                <div className="recipe-form-ingredients">
+                <div>
                     {ingredients.map((input, index) => {
                         return(
                             <div key={index}>
-                                <label className="recipe-form-label"> Ingredient: 
+                                <label> Ingredient: 
                                     <input 
-                                        className="recipe-form-input"
                                         type="text"
                                         name="ingredient"
                                         value={input.ingredient}
                                         onChange={(e) => handleIngredients(index, e)}
                                     />
-                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveIngredients(index, e)}>Remove</button>
+                                    <button onClick={(e) => handleRemoveIngredients(index, e)}>Remove</button>
                                 </label>
                             </div>
                         )
                     })}
-                    <div className="recipe-form-input-add-container">
-                        <button className="recipe-form-input-add" onClick={handleAddIngredients}>Add another ingredient</button>
-                    </div>
+                    <button onClick={handleAddIngredients}>Add another ingredient</button>
                 </div>
-                <div className="recipe-form-instructions">
+                <div>
                     {instructions.map((input, index) => {
                         return(
                             <div key={index}>
-                                <label className="recipe-form-label"> Step {index + 1}: 
+                                <label> Step {index + 1}: 
                                     <input 
-                                        className="recipe-form-input"
                                         type="text"
                                         name="instruction"
                                         value={input.instruction}
                                         onChange={(e) => handleInstructions(index, e)}
                                     />
-                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveInstructions(index, e)}>Remove</button>
+                                    <button onClick={(e) => handleRemoveInstructions(index, e)}>Remove</button>
                                 </label>
                             </div>
                         )
                     })}
-                    <div className="recipe-form-input-add-container">
-                        <button className="recipe-form-input-add" onClick={handleAddInstructions}>Add another step</button>
-                    </div>
+                    <button onClick={handleAddInstructions}>Add another step</button>
                 </div>
-                <div className="recipe-form-buttons">
-                    <button className="recipe-form-submit" type="submit" onClick={handleSubmit}>Add Recipe</button>
-                    <button className="recipe-form-cancel" type="button" onClick={handleCancel}>Cancel</button>
-                </div>
+                <button type="submit" onClick={handleSubmit}>Edit Recipe</button>
             </form>
         </div>
     )
