@@ -137,7 +137,7 @@ class Review(db.model):
             'review': self.comment,
             'rating': self.rating,
             'userId': self.user_id,
-            'postId': self.post_id,
+            'recipeId': self.recipe_id,
             'user': {
                 'name': User.query.get(self.user_id).name
             },
