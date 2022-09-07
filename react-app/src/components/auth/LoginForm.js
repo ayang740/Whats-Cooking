@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './auth.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,34 +32,43 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className='login-page-wrapper'>
+      <div className='login-page-title'>
+        Sign in to your account
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+      <form className='login-page-form' onSubmit={onLogin}>
+        <div className='login-page-form-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div className='login-page-form-info'>
+          <label className='login-page-form-label' htmlFor='email'>Email</label>
+          <input
+            className='login-page-form-input'
+            name='email'
+            type='text'
+            placeholder='Enter your email'
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div className='login-page-form-info'>
+          <label className='login-page-form-label' htmlFor='password'>Password</label>
+          <input
+            className='login-page-form-input'
+            name='password'
+            type='password'
+            placeholder='Enter your password'
+            value={password}
+            onChange={updatePassword}
+          />
+        </div>
+        <div className='login-page-form-button-container'>
+          <button className='login-page-form-button' type='submit'>Sign In</button>
+        </div>
+      </form>
+    </div>
   );
 };
 
