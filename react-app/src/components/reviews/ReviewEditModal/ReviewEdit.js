@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { editReview } from "../../store/reviews"
+import { editReview } from "../../../store/reviews"
 
-export default function ReviewEdit({reviewId, recipeId}) {
+export default function ReviewEdit({reviewId, recipeId, setShowModal}) {
     const sessionUser = useSelector(state => state.session.user)
     const currentReview = useSelector(state=> state.reviews.normalizedReviews[reviewId])
     const dispatch = useDispatch()
@@ -25,8 +25,7 @@ export default function ReviewEdit({reviewId, recipeId}) {
         if (badData) {
             setErrors(badData)
         } else {
-            setReview('')
-            setRating('')
+            setShowModal(false)
             setErrors([])
         }
     }

@@ -1,7 +1,8 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { removeReview } from '../../store/reviews';
-import ReviewEdit from './ReviewEdit';
+import EditReviewModal from './ReviewEditModal';
+
 
 export default function ReviewList({recipeId}) {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function ReviewList({recipeId}) {
                                     <button
                                     onClick={async()=> await dispatch(removeReview(review.id))}
                                     >Delete Review</button>
-                                    <ReviewEdit reviewId={review.id} recipeId={recipeId} />
+                                    <EditReviewModal reviewId={review.id} recipeId={recipeId} />
                                 </div>
                             )
                             }
