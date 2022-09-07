@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { editReview } from "../../../store/reviews"
+import '../reviews.css'
 
 export default function ReviewEdit({reviewId, recipeId, setShowModal}) {
     const sessionUser = useSelector(state => state.session.user)
@@ -31,24 +32,27 @@ export default function ReviewEdit({reviewId, recipeId, setShowModal}) {
     }
 
     return(
-        <div>
-            <div>
-                <form>
-                    <ul>
+        <div className="edit-review-modal">
+            <div className="edit-review-title">Update Your Review</div>
+            <div className="edit-review-form-wrapper">
+                <form className="edit-review-form">
+                    <ul className="reviews-form-errors">
                         {!!errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <textarea 
+                        className="edit-review-form-textarea"
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                     />
-                    <label> Rating:
+                    <label className="edit-review-form-label"> Rating:
                         <input
+                            className="edit-review-form-input"
                             type="number"
                             value={rating}
                             onChange={(e) => setRating(e.target.value)}
                         />
                     </label>
-                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                    <button className="reviews-form-button" type="submit" onClick={handleSubmit}>Submit</button>
                 </form>
             </div>
         </div>

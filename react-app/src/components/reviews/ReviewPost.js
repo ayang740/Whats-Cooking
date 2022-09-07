@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { createNewReview } from "../../store/reviews"
+import './reviews.css'
+
 
 export default function ReviewPost({recipeId}) {
     const sessionUser = useSelector(state => state.session.user)
@@ -31,26 +33,30 @@ export default function ReviewPost({recipeId}) {
     }
 
     return (
-        <div>
-            <div>Leave a Review</div>
-            <div>
+        <div className="reviews-container">
+            <div className="reviews-post-title">Leave a Review</div>
+            <div className="reviews-form">
                 <form>
-                    <ul>
+                    <ul className="reviews-form-errors">
                         {!!errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <textarea 
+                        className="reviews-form-textarea"
                         placeholder="Let us know your thoughts..."
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                     />
-                    <label> Rating:
-                        <input
-                            type="number"
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                        />
-                    </label>
-                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                    <div className="reviews-form-bottom">
+                        <label className="reviews-form-label"> Rating:
+                            <input
+                                className="reviews-form-input"
+                                type="number"
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                            />
+                        </label>
+                        <button className="reviews-form-button" type="submit" onClick={handleSubmit}>Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
