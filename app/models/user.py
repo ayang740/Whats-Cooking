@@ -116,7 +116,7 @@ class Instruction(db.Model):
             'recipeId': self.recipe_id
         }
 
-class Review(db.model):
+class Review(db.Model):
     __tablename__="reviews"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -134,10 +134,10 @@ class Review(db.model):
     def review_to_dict(self):
         return {
             'id': self.id,
-            'review': self.comment,
+            'review': self.review,
             'rating': self.rating,
             'userId': self.user_id,
-            'postId': self.post_id,
+            'recipeId': self.recipe_id,
             'user': {
                 'name': User.query.get(self.user_id).name
             },

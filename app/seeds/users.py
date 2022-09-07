@@ -1,4 +1,4 @@
-from app.models import db, User, Recipe, Ingredient, Instruction
+from app.models import db, User, Recipe, Ingredient, Instruction, Review
 
 
 # Adds a demo user, you can add other users here if you want
@@ -148,6 +148,19 @@ def seed_instructions():
 
     db.session.commit()
 
+def seed_reviews():
+    review1 = Review(review='This was an excellent dessert for the kids', rating=5, user_id=1, recipe_id=1)
+    review2 = Review(review='Made this last weekend and thought it was a bit too sweet', rating=3, user_id=2, recipe_id=1)
+    review3 = Review(review='Delicious option for lunch that is easy to make as well', rating=5, user_id=1, recipe_id=2)
+    review4 = Review(review='Pretty good sandwich too make when busy', rating=4, user_id=2, recipe_id=2)
+
+    db.session.add(review1)
+    db.session.add(review2)
+    db.session.add(review3)
+    db.session.add(review4)
+    
+    db.session.commit()
+
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and RESET IDENTITY
@@ -167,4 +180,8 @@ def undo_ingredients():
 
 def undo_instructions():
     db.session.execute('TRUNCATE instructions RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+def undo_reviews():
+    db.session.execute('TRUNCATE reviews RESTART IDENTITY CASCADE;')
     db.session.commit()

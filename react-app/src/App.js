@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import RecipeList from './components/recipes/RecipeList';
 import { getAllRecipes } from './store/recipes';
+import { getAllReviews } from './store/reviews';
 import SingleRecipe from './components/recipes/SingleRecipe';
 import RecipePost from './components/recipes/RecipePost';
 import RecipeEdit from './components/recipes/RecipeEdit';
@@ -22,6 +23,7 @@ function App() {
     (async() => {
       await dispatch(authenticate());
       await dispatch(getAllRecipes());
+      await dispatch(getAllReviews())
       setLoaded(true);
     })();
   }, [dispatch]);

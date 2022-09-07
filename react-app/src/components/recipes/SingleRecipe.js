@@ -2,6 +2,8 @@ import { useParams, Redirect, useHistory, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeRecipe } from '../../store/recipes';
 import './recipes.css'
+import ReviewList from '../reviews/ReviewList';
+import ReviewPost from '../reviews/ReviewPost';
 
 export default function SingleRecipe() {
     const { recipeId } = useParams()
@@ -82,6 +84,12 @@ export default function SingleRecipe() {
                     </div>
                 )
             }
+            <div>
+                <ReviewPost recipeId={recipeId}/>
+            </div>
+            <div>
+                <ReviewList recipeId={recipeId}/>
+            </div>
         </div>
     )
 }
