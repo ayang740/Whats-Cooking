@@ -1,16 +1,27 @@
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import { FaBars } from "react-icons/fa"
 
 const NavBar = () => {
+  const [sidebar, setSidebar] = useState(false)
+  const showSidebar = () => setSidebar(!sidebar)
+
   return (
     <nav>
+      <div>
+        <Link to='#'>
+          <FaBars onClick={showSidebar} />
+        </Link>
+      </div>
+      <div>
+        <NavLink to='/' exact={true} activeClassName='active'>
+            top recipes
+        </NavLink>
+      </div>
       <ul>
         <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
         </li>
         <li>
           <NavLink to='/login' exact={true} activeClassName='active'>
