@@ -121,6 +121,8 @@ def edit_recipe(id):
         recipe_data = request.json
         ingredients_data = recipe_data["ingredients"]
         instructions_data = recipe_data["instructions"]
+        deleted_ingredients_data = recipe_data["deletedIngredients"]
+        deleted_instructions_data = recipe_data["deletedInstructions"]
 
         if (len(ingredients_data) > 0 and len(instructions_data) > 0):
             for ingredient_data in ingredients_data:
@@ -141,7 +143,8 @@ def edit_recipe(id):
                     else:
                         return ingredient_validator
                 else:
-                    print('hello')
+                    pass
+            
 
             for instruction_data in instructions_data:
                 instruction_validator = instruction_length(instruction_data['instruction'])
@@ -161,7 +164,21 @@ def edit_recipe(id):
                     else:
                         return instruction_validator
                 else:
-                    print('hello')
+                    pass
+
+            for deleted_ingredient_data in deleted_ingredients_data:
+                if 'id' in deleted_ingredient_data.keys():
+                    ingredient = Ingredient.query.get(deleted_ingredient_data['id'])
+                    db.session.delete(ingredient)
+                else:
+                    pass
+
+            for deleted_instruction_data in deleted_instructions_data:
+                if 'id' in deleted_instruction_data.keys():
+                    instruction = Instruction.query.get(deleted_instruction_data['id'])
+                    db.session.delete(instruction)
+                else:
+                    pass
 
             db.session.commit()
         else:
