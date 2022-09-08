@@ -19,8 +19,9 @@ export default function RecipeEdit() {
     const [totalTime, setTotalTime] = useState(recipe.totalTime)
     const [ingredients, setIngredients] = useState(recipe.ingredients)
     const [instructions, setInstructions] = useState(recipe.instructions)
+    const [deletedIngredients, setDeletedIngredients] = useState([])
+    const [deletedInstructions, setDeletedInstructions] = useState([])
     const [errors, setErrors] = useState([])
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -34,7 +35,9 @@ export default function RecipeEdit() {
             totalTime,
             user_id: sessionUser.id,
             ingredients,
-            instructions
+            instructions,
+            deletedIngredients,
+            deletedInstructions
         }
 
         const badData = await dispatch(editRecipe(payload, recipeId))
@@ -42,7 +45,7 @@ export default function RecipeEdit() {
             setErrors(badData)
         } else {
             setErrors([])
-            // history.push(`/recipes/${recipe.id}`)
+            history.push(`/recipes/${recipe.id}`)
         }
     }
     
@@ -61,6 +64,7 @@ export default function RecipeEdit() {
     const handleRemoveIngredients = (index, e) => {
         e.preventDefault()
         let data = [...ingredients];
+        setDeletedIngredients([...deletedIngredients, data[index]])
         data.splice(index, 1)
         setIngredients(data)
     }
@@ -80,6 +84,7 @@ export default function RecipeEdit() {
     const handleRemoveInstructions = (index, e) => {
         e.preventDefault()
         let data = [...instructions];
+        setDeletedInstructions([...deletedInstructions, data[index]])
         data.splice(index, 1)
         setInstructions(data)
     }
