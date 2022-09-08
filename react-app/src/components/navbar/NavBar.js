@@ -1,13 +1,15 @@
-
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { FaBars, FaRegWindowClose } from "react-icons/fa"
 import './navbar.css'
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const showSidebar = () => setSidebar(!sidebar)
+  const sessionUser = useSelector(state => state.session.user)
+
 
   return (
     <nav className='navbar'>
@@ -25,32 +27,40 @@ const NavBar = () => {
         <ul className='sidebar-menu-items'>
           <li className='sidebar-item'>
             <NavLink className='sidebar-item-link' to='/' exact={true}>
-              HOME
+              <div onClick={showSidebar}>HOME</div>
             </NavLink>
           </li>
           <li className='sidebar-item'>
             <NavLink className='sidebar-item-link' to='/recipes' exact={true}>
-              RECIPES
+              <div onClick={showSidebar}>RECIPES</div>
             </NavLink>
           </li>
-          <li className='sidebar-item'>
-            <NavLink className='sidebar-item-link' to='/newrecipe' exact={true}>
-              ADD RECIPE
-            </NavLink>
-          </li>
-          <li className='sidebar-item'>
-            <NavLink className='sidebar-item-link' to='/login' exact={true} activeClassName='active'>
-              LOGIN
-            </NavLink>
-          </li>
-          <li className='sidebar-item'>
-            <NavLink className='sidebar-item-link' to='/sign-up' exact={true} activeClassName='active'>
-              SIGN UP
-            </NavLink>
-          </li>
-          <li className='sidebar-item'>
-            <LogoutButton />
-          </li>
+          {sessionUser &&
+            <li className='sidebar-item'>
+              <NavLink className='sidebar-item-link' to='/newrecipe' exact={true}>
+                <div onClick={showSidebar}>ADD A RECIPE</div>
+              </NavLink>
+            </li>
+          }
+          {!sessionUser &&
+            <li className='sidebar-item'>
+              <NavLink className='sidebar-item-link' to='/login' exact={true} activeClassName='active'>
+                <div onClick={showSidebar}>LOGIN</div>
+              </NavLink>
+            </li>
+          }
+          {!sessionUser &&
+            <li className='sidebar-item'>
+              <NavLink className='sidebar-item-link' to='/sign-up' exact={true} activeClassName='active'>
+                <div onClick={showSidebar}>SIGN UP</div>
+              </NavLink>
+            </li>
+          }
+          {sessionUser &&
+            <li className='sidebar-item'>
+              <div onClick={showSidebar}><LogoutButton /></div>
+            </li>
+          }
         </ul>
       </nav>
       <div>

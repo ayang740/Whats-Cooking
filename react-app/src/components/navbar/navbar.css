@@ -45,6 +45,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-right: 16px;
+    list-style: none;
 }
 
 .sidebar-toggle {
@@ -66,3 +67,4 @@
 .sidebar-item-link:hover {
     color: rgb(249, 63, 35);
 }
+
