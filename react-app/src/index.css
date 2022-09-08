@@ -1,7 +1,6 @@
 /* TODO Add site wide styles */
 * {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    overflow-x: hidden;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
