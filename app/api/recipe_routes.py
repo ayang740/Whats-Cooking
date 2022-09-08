@@ -121,41 +121,50 @@ def edit_recipe(id):
         recipe_data = request.json
         ingredients_data = recipe_data["ingredients"]
         instructions_data = recipe_data["instructions"]
-        print('!!!')
-        print(ingredients_data)
-        print(instructions_data)
- 
-        
+
         if (len(ingredients_data) > 0 and len(instructions_data) > 0):
-            recipe.ingredients = ingredients_data
-            recipe.instructions = instructions_data
+            for ingredient_data in ingredients_data:
+                ingredient_validator = ingredient_length(ingredient_data['ingredient'])
+                if 'id' in ingredient_data.keys():
+                    ingredient = Ingredient.query.get(ingredient_data['id'])
+                    if ingredient_validator:
+                        ingredient.ingredient = ingredient_data['ingredient']
+                    else:
+                        return ingredient_validator
+                elif 'id' not in ingredient_data.keys():
+                    if ingredient_validator:
+                        new_ingredient = Ingredient(
+                            ingredient = ingredient_data['ingredient'],
+                            recipe_id = recipe.id
+                        )
+                        db.session.add(new_ingredient)
+                    else:
+                        return ingredient_validator
+                else:
+                    print('hello')
 
-            # for ingredient_data in ingredients_data:
-            #     ingredient_validator = ingredient_length(ingredient_data)
-            #     if ingredient_validator:
-            #         new_ingredient = Ingredient(
-            #             ingredient = ingredient_data,
-            #             recipe_id = recipe.id
-            #         )
-            #         db.session.add(new_ingredient)
-            #     else:
-            #         return ingredient_validator
-            
-            # for instruction_data in instructions_data:
-            #     instruction_validator = instruction_length(instruction_data)
-            #     if instruction_validator:
-            #         new_instruction = Instruction(
-            #             instruction = instruction_data,
-            #             recipe_id = recipe.id
-            #         )
-            #         db.session.add(new_instruction)
-            #     else:
-            #         return instruction_validator
+            for instruction_data in instructions_data:
+                instruction_validator = instruction_length(instruction_data['instruction'])
+                if 'id' in instruction_data.keys():
+                    instruction = Instruction.query.get(instruction_data['id'])
+                    if instruction_validator:
+                        instruction.instruction = instruction_data['instruction']
+                    else:
+                        return instruction_validator
+                elif 'id' not in instruction_data.keys():
+                    if instruction_validator:
+                        new_instruction = Instruction(
+                            instruction = instruction_data['instruction'],
+                            recipe_id = recipe.id
+                        )
+                        db.session.add(new_instruction)
+                    else:
+                        return instruction_validator
+                else:
+                    print('hello')
 
-            # db.session.commit()
-
+            db.session.commit()
         else:
-            db.session.delete(recipe)
             return {'errors': ["Please include ingredients and instructions."]}, 403 
 
         return {'recipe': recipe.post_to_dict()}

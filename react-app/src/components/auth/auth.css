@@ -22,10 +22,21 @@
     height: 500px;
     align-items: center;
 }
+
+.signup-page-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 40%;
+    height: 600px;
+    align-items: center;
+}
+
 .login-page-form-errors {
     color: rgb(249, 63, 35);
     list-style: none;
     padding: 5% 0;
+    overflow-y: hidden;
 }
 
 .login-page-form-info {
@@ -33,11 +44,13 @@
     flex-direction: column;
     padding: 1rem;
     width: 90%;
+    overflow-y: hidden;
 }
 
 .login-page-form-label {
     font-size: 14px;
     padding: 1rem 0;
+    overflow-y: hidden;
 }
 
 .login-page-form-input {
@@ -45,13 +58,21 @@
     height: 2rem;
     font-size: 14px;
     border: 1px solid rgb(30, 30, 30);
+    overflow-y: hidden;
 }
 
 .login-page-form-button-container {
     padding-top: 4rem;
+    overflow-y: hidden;
+}
+
+.signup-page-form-button-container {
+    padding: 1rem;
+    overflow-y: hidden;
 }
 
 .login-page-form-button {
+    overflow-y: hidden;
     background-color: rgb(30, 30, 30);
     border: 1px solid rgb(30, 30, 30);
     color: white;

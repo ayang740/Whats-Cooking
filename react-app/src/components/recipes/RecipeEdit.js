@@ -21,16 +21,6 @@ export default function RecipeEdit() {
     const [instructions, setInstructions] = useState(recipe.instructions)
     const [errors, setErrors] = useState([])
 
-    const ingredientNames = ingredients.map(ingredient => {
-        return ingredient['ingredient']
-    })
-
-    const instructionNames = instructions.map(instruction => {
-        return instruction['instruction']
-    })
-    console.log(ingredientNames)
-    console.log(instructionNames)
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -43,8 +33,8 @@ export default function RecipeEdit() {
             activeTime,
             totalTime,
             user_id: sessionUser.id,
-            ingredients: ingredientNames,
-            instructions: instructionNames
+            ingredients,
+            instructions
         }
 
         const badData = await dispatch(editRecipe(payload, recipeId))
@@ -52,7 +42,7 @@ export default function RecipeEdit() {
             setErrors(badData)
         } else {
             setErrors([])
-            history.push(`/recipes/${recipe.id}`)
+            // history.push(`/recipes/${recipe.id}`)
         }
     }
     
