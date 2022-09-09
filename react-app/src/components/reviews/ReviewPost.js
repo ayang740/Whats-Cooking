@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom"
 import { createNewReview } from "../../store/reviews"
 import './reviews.css'
 
@@ -7,6 +8,7 @@ import './reviews.css'
 export default function ReviewPost({recipeId, recipe}) {
     const sessionUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const [review, setReview] = useState('')
     const [rating, setRating] = useState('')
@@ -14,6 +16,11 @@ export default function ReviewPost({recipeId, recipe}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!sessionUser) {
+            history.push('/login')
+            return null
+        }
+
         setErrors([])
         const payload = {
             review,
