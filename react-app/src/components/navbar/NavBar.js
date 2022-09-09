@@ -4,6 +4,7 @@ import LogoutButton from '../auth/LogoutButton';
 import { FaBars, FaRegWindowClose } from "react-icons/fa"
 import './navbar.css'
 import { useSelector } from 'react-redux';
+import DemoUser from '../auth/DemoUser';
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
@@ -54,6 +55,11 @@ const NavBar = () => {
               <NavLink className='sidebar-item-link' to='/sign-up' exact={true} activeClassName='active'>
                 <div onClick={showSidebar}>SIGN UP</div>
               </NavLink>
+            </li>
+          }
+          {!sessionUser &&
+            <li className='sidebar-item'>
+              <div onClick={showSidebar}><DemoUser /></div>
             </li>
           }
           {sessionUser &&

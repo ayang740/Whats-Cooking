@@ -15,5 +15,5 @@ def rating_limit(form, field):
         raise ValidationError('Rating cannot be greater than 5')
 
 class ReviewForm(FlaskForm):
-    review = TextField('review', validators=[DataRequired(), review_length])
-    rating = IntegerField('rating', validators=[DataRequired(), rating_limit])
+    review = TextField('review', validators=[DataRequired(message='Please write a review'), review_length])
+    rating = IntegerField('rating', validators=[DataRequired(message='Please give a rating'), rating_limit])
