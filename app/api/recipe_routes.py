@@ -50,6 +50,27 @@ def post_recipe():
     recipe_form['csrf_token'].data = request.cookies['csrf_token']
     if recipe_form.validate_on_submit():
         data = recipe_form.data
+        recipe_data = request.json
+        ingredients_data = recipe_data["ingredients"]
+        instructions_data = recipe_data["instructions"]
+
+        if (ingredients_data[0] and instructions_data[0]):
+            for ingredient_data in ingredients_data:
+                ingredient_validator = ingredient_length(ingredient_data)
+                if ingredient_validator:
+                    pass
+                else:
+                    return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403 
+            
+            for instruction_data in instructions_data:
+                instruction_validator = instruction_length(instruction_data)
+                if instruction_validator:
+                    pass
+                else:
+                    return {'errors': ["Instruction must be at least 10 characters long"]}, 403 
+        else:
+            return {'errors': ["Please include ingredients and instructions."]}, 403 
+
         new_recipe = Recipe(
             name = data['name'],
             image_url = data['imageUrl'],
@@ -59,40 +80,55 @@ def post_recipe():
             total_time = data['totalTime'],
             user_id = current_user.id
         )
+
         db.session.add(new_recipe)
         db.session.commit()
 
-        recipe_data = request.json
-        ingredients_data = recipe_data["ingredients"]
-        instructions_data = recipe_data["instructions"]
+        for ingredient_data in ingredients_data:
+            new_ingredient = Ingredient(
+                ingredient = ingredient_data,
+                recipe_id = new_recipe.id
+            )
+            db.session.add(new_ingredient)
+        
+        for instruction_data in instructions_data:
+            new_instruction = Instruction(
+                instruction = instruction_data,
+                recipe_id = new_recipe.id
+            )
+            db.session.add(new_instruction)
 
-        if (ingredients_data[0] and instructions_data[0]):
-            for ingredient_data in ingredients_data:
-                ingredient_validator = ingredient_length(ingredient_data)
-                if ingredient_validator:
-                    new_ingredient = Ingredient(
-                        ingredient = ingredient_data,
-                        recipe_id = new_recipe.id
-                    )
-                    db.session.add(new_ingredient)
-                else:
-                    return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403 
+        db.session.commit()
+ 
+        # if (ingredients_data[0] and instructions_data[0]):
+        #     for ingredient_data in ingredients_data:
+        #         ingredient_validator = ingredient_length(ingredient_data)
+        #         if ingredient_validator:
+        #             new_ingredient = Ingredient(
+        #                 ingredient = ingredient_data,
+        #                 recipe_id = new_recipe.id
+        #             )
+        #             db.session.add(new_ingredient)
+        #         else:
+        #             db.session.delete(new_recipe)
+        #             return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403 
             
-            for instruction_data in instructions_data:
-                instruction_validator = instruction_length(instruction_data)
-                if instruction_validator:
-                    new_instruction = Instruction(
-                        instruction = instruction_data,
-                        recipe_id = new_recipe.id
-                    )
-                    db.session.add(new_instruction)
-                else:
-                    return {'errors': ["Instruction must be at least 10 characters long"]}, 403 
+        #     for instruction_data in instructions_data:
+        #         instruction_validator = instruction_length(instruction_data)
+        #         if instruction_validator:
+        #             new_instruction = Instruction(
+        #                 instruction = instruction_data,
+        #                 recipe_id = new_recipe.id
+        #             )
+        #             db.session.add(new_instruction)
+        #         else:
+        #             db.session.delete(new_recipe)
+        #             return {'errors': ["Instruction must be at least 10 characters long"]}, 403 
 
-            db.session.commit()
-        else:
-            db.session.delete(new_recipe)
-            return {'errors': ["Please include ingredients and instructions."]}, 403 
+        #     db.session.commit()
+        # else:
+        #     db.session.delete(new_recipe)
+        #     return {'errors': ["Please include ingredients and instructions."]}, 403 
  
         return {'new_recipe': new_recipe.post_to_dict()}
 
