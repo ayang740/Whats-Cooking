@@ -4,7 +4,7 @@ import { createNewReview } from "../../store/reviews"
 import './reviews.css'
 
 
-export default function ReviewPost({recipeId}) {
+export default function ReviewPost({recipeId, recipe}) {
     const sessionUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
 
@@ -21,15 +21,19 @@ export default function ReviewPost({recipeId}) {
             user_id: sessionUser.id,
             recipe_id: recipeId
         }
-
-        const badData = await dispatch(createNewReview(payload))
-        if (badData) {
-            setErrors(badData)
+        if (sessionUser.id !== recipe.userId) {
+            const badData = await dispatch(createNewReview(payload))
+            if (badData) {
+                setErrors(badData)
+            } else {
+                setReview('')
+                setRating('')
+                setErrors([])
+            }
         } else {
-            setReview('')
-            setRating('')
-            setErrors([])
+            setErrors(['Cannot review your own recipe'])
         }
+        
     }
 
     return (
