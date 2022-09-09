@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom"
 import { createNewRecipe } from "../../store/recipes"
+import { FaTrashAlt } from "react-icons/fa";
 import './recipeforms.css'
 
 
@@ -166,7 +167,7 @@ export default function RecipePost() {
                                         value={input.ingredient}
                                         onChange={(e) => handleIngredients(index, e)}
                                     />
-                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveIngredients(index, e)}>Remove</button>
+                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveIngredients(index, e)}><FaTrashAlt /></button>
                                 </label>
                             </div>
                         )
@@ -187,7 +188,7 @@ export default function RecipePost() {
                                         value={input.instruction}
                                         onChange={(e) => handleInstructions(index, e)}
                                     />
-                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveInstructions(index, e)}>Remove</button>
+                                    <button className="recipe-form-input-remove" onClick={(e) => handleRemoveInstructions(index, e)}><FaTrashAlt /></button>
                                 </label>
                             </div>
                         )
