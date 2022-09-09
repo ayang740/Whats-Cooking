@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from "react-router-dom"
 import { editRecipe } from "../../store/recipes"
@@ -23,6 +23,10 @@ export default function RecipeEdit() {
     const [deletedIngredients, setDeletedIngredients] = useState([])
     const [deletedInstructions, setDeletedInstructions] = useState([])
     const [errors, setErrors] = useState([])
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

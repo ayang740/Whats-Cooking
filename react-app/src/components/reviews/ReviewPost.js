@@ -37,7 +37,7 @@ export default function ReviewPost({recipeId, recipe}) {
     }
 
     return (
-        <div className="reviews-container">
+        <div className="reviews-post-container">
             <div className="reviews-post-title">Leave a Review</div>
             <div className="reviews-form">
                 <form>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom"
 import { createNewRecipe } from "../../store/recipes"
@@ -20,6 +20,10 @@ export default function RecipePost() {
     const [ingredients, setIngredients] = useState([{ ingredient: '' }])
     const [instructions, setInstructions] = useState([{ instruction: '' }])
     const [errors, setErrors] = useState([])
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[])
 
     const ingredientNames = ingredients.map(ingredient => {
         return ingredient['ingredient']
