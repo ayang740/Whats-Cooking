@@ -85,9 +85,9 @@ export default function SingleRecipe() {
                 )
             }
             <div>
-                <ReviewPost recipeId={recipeId}/>
-            </div>
             <div>
+                <ReviewPost recipeId={recipeId} recipe={recipe}/>
+            </div>
                 <ReviewList recipeId={recipeId}/>
             </div>
         </div>
