@@ -69,9 +69,9 @@ const NavBar = () => {
           }
         </ul>
       </nav>
-      <div>
-        <NavLink to='/' exact={true} activeClassName='active'>
-            top recipes
+      <div className='navbar-title'>
+        <NavLink className='navbar-title-link' to='/' exact={true}>
+            TopRecipes
         </NavLink>
       </div>
     </nav>
