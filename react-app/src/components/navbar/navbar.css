@@ -9,6 +9,17 @@
     top: 0;
 }
 
+.navbar-title {
+    margin-left: 40%;
+}
+
+.navbar-title-link{
+    text-decoration: none;
+    color: rgb(249, 63, 35);
+    font-size: 36px;
+    font-weight: bold;
+}
+
 .sidebar {
     display: flex;
     justify-content: flex-start;
