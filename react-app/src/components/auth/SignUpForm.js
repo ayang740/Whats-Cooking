@@ -61,6 +61,7 @@ const SignUpForm = () => {
             className='login-page-form-input'
             type='text'
             name='username'
+            placeholder='Username(required)'
             onChange={updateUsername}
             value={username}
           ></input>
@@ -71,6 +72,7 @@ const SignUpForm = () => {
             className='login-page-form-input'
             type='text'
             name='name'
+            placeholder='Name(required)'
             onChange={updateName}
             value={name}
           ></input>
@@ -81,6 +83,7 @@ const SignUpForm = () => {
             className='login-page-form-input'
             type='text'
             name='email'
+            placeholder='Email(required)'
             onChange={updateEmail}
             value={email}
           ></input>
@@ -91,6 +94,7 @@ const SignUpForm = () => {
             className='login-page-form-input'
             type='password'
             name='password'
+            placeholder='Password(required)'
             onChange={updatePassword}
             value={password}
           ></input>
@@ -101,6 +105,7 @@ const SignUpForm = () => {
             className='login-page-form-input'
             type='password'
             name='repeat_password'
+            placeholder='Confirm Password(required)'
             onChange={updateRepeatPassword}
             value={repeatPassword}
           ></input>
