@@ -12,7 +12,8 @@ def validation_errors_to_error_messages(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages.append(f'{error}')
+    print(errorMessages)
     return errorMessages
 
 #get all recipes
@@ -31,13 +32,13 @@ def get_one_recipe(id):
 
 def instruction_length(instruction):
     if len(instruction) < 10:
-        raise Exception(['Must be at least 10 characters long'])
+        return False
     else:
         return True
 
 def ingredient_length(ingredient):
     if len(ingredient) < 3 or len(ingredient) > 50:
-        raise Exception(['Must be between 3 and 50 characters'])
+        return False
     else:
         return True
 
@@ -65,7 +66,7 @@ def post_recipe():
         ingredients_data = recipe_data["ingredients"]
         instructions_data = recipe_data["instructions"]
 
-        if (len(ingredients_data) > 0 and len(instructions_data) > 0):
+        if (ingredients_data[0] and instructions_data[0]):
             for ingredient_data in ingredients_data:
                 ingredient_validator = ingredient_length(ingredient_data)
                 if ingredient_validator:
@@ -75,7 +76,7 @@ def post_recipe():
                     )
                     db.session.add(new_ingredient)
                 else:
-                    return ingredient_validator
+                    return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403 
             
             for instruction_data in instructions_data:
                 instruction_validator = instruction_length(instruction_data)
@@ -86,10 +87,9 @@ def post_recipe():
                     )
                     db.session.add(new_instruction)
                 else:
-                    return instruction_validator
+                    return {'errors': ["Instruction must be at least 10 characters long"]}, 403 
 
             db.session.commit()
-
         else:
             db.session.delete(new_recipe)
             return {'errors': ["Please include ingredients and instructions."]}, 403 
@@ -124,7 +124,7 @@ def edit_recipe(id):
         deleted_ingredients_data = recipe_data["deletedIngredients"]
         deleted_instructions_data = recipe_data["deletedInstructions"]
 
-        if (len(ingredients_data) > 0 and len(instructions_data) > 0):
+        if (ingredients_data[0] and instructions_data[0]):
             for ingredient_data in ingredients_data:
                 ingredient_validator = ingredient_length(ingredient_data['ingredient'])
                 if 'id' in ingredient_data.keys():
@@ -141,7 +141,7 @@ def edit_recipe(id):
                         )
                         db.session.add(new_ingredient)
                     else:
-                        return ingredient_validator
+                        return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403
                 else:
                     pass
             
@@ -162,7 +162,7 @@ def edit_recipe(id):
                         )
                         db.session.add(new_instruction)
                     else:
-                        return instruction_validator
+                        return {'errors': ["Instruction must be at least 10 characters long"]}, 403
                 else:
                     pass
 

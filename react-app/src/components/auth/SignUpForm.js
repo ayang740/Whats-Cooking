@@ -7,6 +7,7 @@ import './auth.css'
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -15,17 +16,19 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(username, name, email, password, repeatPassword));
       if (data) {
         setErrors(data)
       }
-    }
   };
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
   };
+
+  const updateName = (e) => {
+    setName(e.target.value);
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -63,6 +66,16 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div className='login-page-form-info'>
+          <label className='login-page-form-label'>Name</label>
+          <input
+            className='login-page-form-input'
+            type='text'
+            name='name'
+            onChange={updateName}
+            value={name}
+          ></input>
+        </div>
+        <div className='login-page-form-info'>
           <label className='login-page-form-label'>Email</label>
           <input
             className='login-page-form-input'
@@ -83,7 +96,7 @@ const SignUpForm = () => {
           ></input>
         </div>
         <div className='login-page-form-info'>
-          <label className='login-page-form-label'>Repeat Password</label>
+          <label className='login-page-form-label'>Confirm Password</label>
           <input
             className='login-page-form-input'
             type='password'
