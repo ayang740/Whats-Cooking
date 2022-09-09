@@ -4,6 +4,7 @@ import { removeRecipe } from '../../store/recipes';
 import './recipes.css'
 import ReviewList from '../reviews/ReviewList';
 import ReviewPost from '../reviews/ReviewPost';
+import { useEffect } from 'react';
 
 export default function SingleRecipe() {
     const { recipeId } = useParams()
@@ -11,6 +12,10 @@ export default function SingleRecipe() {
     const history = useHistory()
     const sessionUser = useSelector(state => state.session.user)
     const recipe = useSelector(state => state.recipes.normalizedRecipes[recipeId])
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[])
 
     const deleteRecipe = (e) => {
         e.preventDefault();

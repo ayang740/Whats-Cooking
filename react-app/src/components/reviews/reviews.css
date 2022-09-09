@@ -2,6 +2,13 @@
     display: flex;
     flex-direction: column;
     width: 60%;
+    padding: 0 20% 5%;
+}
+
+.reviews-post-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
     padding: 0 20%;
 }
 

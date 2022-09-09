@@ -54,7 +54,7 @@ def post_recipe():
         ingredients_data = recipe_data["ingredients"]
         instructions_data = recipe_data["instructions"]
 
-        if (ingredients_data[0] and instructions_data[0]):
+        if (ingredients_data and instructions_data):
             for ingredient_data in ingredients_data:
                 ingredient_validator = ingredient_length(ingredient_data)
                 if ingredient_validator:
@@ -160,7 +160,7 @@ def edit_recipe(id):
         deleted_ingredients_data = recipe_data["deletedIngredients"]
         deleted_instructions_data = recipe_data["deletedInstructions"]
 
-        if (ingredients_data[0] and instructions_data[0]):
+        if (ingredients_data and instructions_data):
             for ingredient_data in ingredients_data:
                 ingredient_validator = ingredient_length(ingredient_data['ingredient'])
                 if 'id' in ingredient_data.keys():
@@ -168,7 +168,7 @@ def edit_recipe(id):
                     if ingredient_validator:
                         ingredient.ingredient = ingredient_data['ingredient']
                     else:
-                        return ingredient_validator
+                        return {'errors': ["Ingredient must be between 3 and 50 characters"]}, 403
                 elif 'id' not in ingredient_data.keys():
                     if ingredient_validator:
                         new_ingredient = Ingredient(
@@ -189,7 +189,7 @@ def edit_recipe(id):
                     if instruction_validator:
                         instruction.instruction = instruction_data['instruction']
                     else:
-                        return instruction_validator
+                        return {'errors': ["Instruction must be at least 10 characters long"]}, 403
                 elif 'id' not in instruction_data.keys():
                     if instruction_validator:
                         new_instruction = Instruction(
