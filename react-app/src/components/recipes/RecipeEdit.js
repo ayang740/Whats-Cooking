@@ -153,7 +153,7 @@ export default function RecipeEdit() {
                             
                         />
                     </label>
-                    <label className="recipe-form-label"> Active Time:
+                    <label className="recipe-form-label"> Active Time(in minutes):
                         <input
                             className="recipe-form-input"
                             placeholder="Active Time(required)"
@@ -162,7 +162,7 @@ export default function RecipeEdit() {
                             onChange={(e) => setActiveTime(e.target.value)}
                         />
                     </label>
-                    <label className="recipe-form-label"> Total Time: 
+                    <label className="recipe-form-label"> Total Time(in minutes): 
                         <input
                             className="recipe-form-input"
                             placeholder="Total Time(required)"

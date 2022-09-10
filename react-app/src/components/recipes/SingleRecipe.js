@@ -55,14 +55,30 @@ export default function SingleRecipe() {
             <div className='single-recipe-middle'>
                 <div className='single-recipe-middle-container'>
                     {(recipe.activeTime && recipe.totalTime) &&  <div className='single-recipe-times'>
-                        <div className='single-recipe-time'>
-                            <div><strong>Active Time</strong></div>
-                            <div> : {recipe.activeTime} minutes</div>
-                        </div>
-                        <div className='single-recipe-time'>
-                            <div><strong>Total Time</strong></div>
-                            <div> : {recipe.totalTime} minutes</div>
-                        </div>
+                        {recipe.activeTime <= 60 &&
+                            <div className='single-recipe-time'>
+                                <div><strong>Active Time</strong></div>
+                                <div> : {recipe.activeTime} minute(s)</div>
+                            </div>
+                        }
+                        {recipe.activeTime > 60 &&
+                            <div className='single-recipe-time'>
+                                <div><strong>Active Time</strong></div>
+                                <div> : {Math.floor(recipe.activeTime/60)} hour(s) {recipe.activeTime%60} minute(s)</div>
+                            </div>
+                        }
+                        {recipe.totalTime <= 60 &&
+                            <div className='single-recipe-time'>
+                                <div><strong>Total Time</strong></div>
+                                <div> : {recipe.totalTime} minute(s)</div>
+                            </div>
+                        }
+                        {recipe.totalTime > 60 &&
+                            <div className='single-recipe-time'>
+                                <div><strong>Total Time</strong></div>
+                                <div> : {Math.floor(recipe.totalTime/60)} hour(s) {recipe.totalTime%60} minute(s)</div>
+                            </div>
+                        }
                     </div>
                     }
                     <div className='single-recipe-description'>{recipe.description}</div>
