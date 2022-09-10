@@ -111,6 +111,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Name:
                     <input
                         className="recipe-form-input"
+                        placeholder="Name(required)"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -120,6 +121,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Image: 
                     <input
                         className="recipe-form-input"
+                        placeholder="Image(required)"
                         type="text"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
@@ -129,6 +131,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Servings:
                     <input
                         className="recipe-form-input"
+                        placeholder="Servings(required)"
                         type="number"
                         value={servings}
                         onChange={(e) => setServings(e.target.value)}
@@ -138,6 +141,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Active Time:
                     <input
                         className="recipe-form-input"
+                        placeholder="Active Time(required)"
                         type="number"
                         value={activeTime}
                         onChange={(e) => setActiveTime(e.target.value)}
@@ -146,6 +150,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Total Time: 
                     <input
                         className="recipe-form-input"
+                        placeholder="Total Time(required)"
                         type="number"
                         value={totalTime}
                         onChange={(e) => setTotalTime(e.target.value)}
@@ -154,6 +159,7 @@ export default function RecipePost() {
                 <label className="recipe-form-label"> Description:
                     <textarea 
                         className="recipe-form-input-textarea"
+                        placeholder="Description(required)"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         
@@ -166,6 +172,7 @@ export default function RecipePost() {
                                 <label className="recipe-form-label"> Ingredient: 
                                     <input 
                                         className="recipe-form-input"
+                                        placeholder="Ingredient(required)"
                                         type="text"
                                         name="ingredient"
                                         value={input.ingredient}
@@ -187,6 +194,7 @@ export default function RecipePost() {
                                 <label className="recipe-form-label"> Step {index + 1}: 
                                     <input 
                                         className="recipe-form-input"
+                                        placeholder="Instruction(required)"
                                         type="text"
                                         name="instruction"
                                         value={input.instruction}

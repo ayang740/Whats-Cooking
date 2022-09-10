@@ -4,7 +4,7 @@ import { removeRecipe } from '../../store/recipes';
 import './recipes.css'
 import ReviewList from '../reviews/ReviewList';
 import ReviewPost from '../reviews/ReviewPost';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SingleRecipe() {
     const { recipeId } = useParams()
@@ -12,6 +12,8 @@ export default function SingleRecipe() {
     const history = useHistory()
     const sessionUser = useSelector(state => state.session.user)
     const recipe = useSelector(state => state.recipes.normalizedRecipes[recipeId])
+
+    const [imageSrc, setImageSrc] = useState(recipe.imageUrl)
 
     useEffect(() => {
         window.scrollTo(0,0)
@@ -37,7 +39,7 @@ export default function SingleRecipe() {
                     <div className='single-recipe-header-author'>BY {(recipe.user.name).toUpperCase()}</div>
                 </div>
                 <div className='single-recipe-header-right'>
-                    <img className='single-recipe-header-image' src={recipe.imageUrl} alt=" "></img>
+                    <img onError={() => setImageSrc('https://www.takeoutlist.com/assets/images/food_default.png')} className='single-recipe-header-image' src={imageSrc} alt=" "></img>
                 </div>
             </div>
             <div className='single-recipe-middle'>

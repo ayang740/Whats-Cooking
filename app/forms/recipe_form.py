@@ -12,8 +12,12 @@ def name_length(form, field):
 
 def image_url(form, field):
     imageUrl = field.data
-
-    if imageUrl[-4:] != ('.jpg' or '.gif' or '.png' or '.tif' or '.bmp' or '.eps'):
+    if imageUrl[-4:] != '.jpg' \
+    and imageUrl[-4:] != '.gif' \
+    and imageUrl[-4:] != '.png' \
+    and imageUrl[-4:] != '.tif' \
+    and imageUrl[-4:] != '.bmp' \
+    and imageUrl[-4:] != '.eps':
         raise ValidationError('Please provide a valid image url (.jpg, .png, .gif, etc)')
 
 def description_length(form, field):
