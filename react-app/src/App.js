@@ -12,6 +12,7 @@ import { getAllReviews } from './store/reviews';
 import SingleRecipe from './components/recipes/SingleRecipe';
 import RecipePost from './components/recipes/RecipePost';
 import RecipeEdit from './components/recipes/RecipeEdit';
+import HomePage from './components/homePage/HomePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -41,7 +42,7 @@ function App() {
           <SignUpForm />
         </Route>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <HomePage />
         </Route>
         <Route path='/recipes' exact={true}>
           <RecipeList />
