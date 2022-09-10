@@ -37,6 +37,16 @@ export default function SingleRecipe() {
                 <div className='single-recipe-header-left'>
                     <div className='single-recipe-header-name'>{recipe.name}</div>
                     <div className='single-recipe-header-author'>BY {(recipe.user.name).toUpperCase()}</div>
+                    {sessionUser?.id === recipe?.userId &&
+                        (
+                            <div className='single-recipe-buttons'>
+                                <NavLink className='single-recipe-edit-link' to={`/recipes/${recipe.id}/edit`}>
+                                    <div className='single-recipe-edit'>Edit Recipe</div>
+                                </NavLink>
+                                <button className='single-recipe-delete' onClick={deleteRecipe}>Delete Recipe</button>
+                            </div>
+                        )
+                    }
                 </div>
                 <div className='single-recipe-header-right'>
                     <img onError={() => setImageSrc('https://www.takeoutlist.com/assets/images/food_default.png')} className='single-recipe-header-image' src={imageSrc} alt=" "></img>
@@ -81,20 +91,10 @@ export default function SingleRecipe() {
                     ))}
                 </div>
             </div>
-            {sessionUser?.id === recipe?.userId &&
-                (
-                    <div>
-                        <button onClick={deleteRecipe}>Delete Recipe</button>
-                        <NavLink to={`/recipes/${recipe.id}/edit`}>
-                            <div>Edit Recipe</div>
-                        </NavLink>
-                    </div>
-                )
-            }
-            <div>
             <div>
                 <ReviewPost recipeId={recipeId} recipe={recipe}/>
             </div>
+            <div>
                 <ReviewList recipeId={recipeId}/>
             </div>
         </div>

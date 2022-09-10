@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory, useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { editRecipe } from "../../store/recipes"
 import { FaTrashAlt } from "react-icons/fa";
 import './recipeforms.css'
@@ -33,11 +33,10 @@ export default function RecipeEdit() {
         // Check if user is allowed to edit recipe
 
         // If not allowed, redirect back to original recipe page
-        if (sessionUser.id != recipe.userId) {
-            console.log("Redirecting")
+        if (sessionUser.id !== recipe.userId) {
             history.push('/recipes')
             return null
-        }else {
+        } else {
             setFinishedLoading(true)
         }
     },[])
@@ -116,9 +115,9 @@ export default function RecipeEdit() {
 
     return (
 
-        <div className="recipe-form-wrapper">
+        <div>
             {finishedLoading && 
-            <div>
+            <div className="recipe-form-wrapper">
                 <div className="recipe-form-title">Edit Your Recipe</div>
                 <form className="recipe-form-container">
                     <ul className="recipe-form-errors">
