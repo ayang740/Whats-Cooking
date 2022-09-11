@@ -13,7 +13,7 @@ export default function SingleRecipe() {
     const sessionUser = useSelector(state => state.session.user)
     const recipe = useSelector(state => state.recipes.normalizedRecipes[recipeId])
 
-    const [imageSrc, setImageSrc] = useState(recipe.imageUrl)
+    const [imageSrc, setImageSrc] = useState(recipe?.imageUrl)
 
     useEffect(() => {
         window.scrollTo(0,0)

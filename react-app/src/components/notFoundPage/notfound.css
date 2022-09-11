@@ -1,0 +1,22 @@
+.notfound-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notfound-text-error {
+    margin-top: 50px;
+    font-size: 36px;
+
+}
+
+.notfound-text {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.notfound-link {
+    text-decoration: none;
+    color: blue;
+    font-size: 18px;
+}
