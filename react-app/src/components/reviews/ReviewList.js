@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { removeReview } from '../../store/reviews';
 import EditReviewModal from './ReviewEditModal';
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaStar } from "react-icons/fa";
 import './reviews.css'
 
 
@@ -30,6 +30,10 @@ export default function ReviewList({recipeId}) {
                         <div key={review.id} className='reviews-list-individual'>
 
                             <div className='reviews-list-individual-review'>{review.review}</div>
+                            <div className='reviews-list-individual-rating'>
+                                <div>{review.rating}</div>
+                                <FaStar className='review-star'/>
+                            </div>
                             <div className='reviews-list-individual-info'>
                                 <div className='reviews-list-individual-name'>{(review.user.name).toUpperCase()}</div>
                                 {sessionUser?.id === review?.userId &&

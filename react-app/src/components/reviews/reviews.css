@@ -90,7 +90,21 @@
     font-size: 16px;
 }
 .reviews-list-individual-review {
+    padding-bottom: 0.5rem;
+}
+
+.reviews-list-individual-rating {
     padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+}
+
+.review-star {
+    height: 18px;
+    width: 18px;
+    padding-left: 2px;
 }
 
 .reviews-list-individual-info {
