@@ -32,7 +32,7 @@ export default function SingleRecipe() {
     }
 
     return (
-        <div>
+        <div className='single-recipe-wrapper'>
             <div className='single-recipe-header'>
                 <div className='single-recipe-header-left'>
                     <div className='single-recipe-header-name'>{recipe.name}</div>
