@@ -31,13 +31,13 @@ def get_one_recipe(id):
     return response
 
 def instruction_length(instruction):
-    if len(instruction) < 10:
+    if len(instruction) < 10 or instruction.isspace():
         return False
     else:
         return True
 
 def ingredient_length(ingredient):
-    if len(ingredient) < 3 or len(ingredient) > 50:
+    if len(ingredient) < 3 or len(ingredient) > 50 or ingredient.isspace():
         return False
     else:
         return True
