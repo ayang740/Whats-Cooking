@@ -39,6 +39,7 @@ export default function HomePage() {
                 </div>
             </div>
             <div className="about-me">
+                <div className="about-me-link">Created By: Allan Yang</div>
                 <a href="https://github.com/ayang740" className="about-me-link">Github</a>
                 <a href="https://www.linkedin.com/in/allan-yang-46a31624a/" className="about-me-link">LinkedIn</a>
             </div>
