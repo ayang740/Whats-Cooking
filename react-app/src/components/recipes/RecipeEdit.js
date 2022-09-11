@@ -44,6 +44,7 @@ export default function RecipeEdit() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
+        window.scrollTo(0,0)
         const payload = {
             name,
             imageUrl,
