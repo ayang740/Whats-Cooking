@@ -29,6 +29,10 @@ Visit the site here: [Top Recipes](https://toprecipes.herokuapp.com/)
 - [Wire Frames](https://github.com/ayang740/top-recipes/wiki/Wire-Frames)
 
 ## Splash Page:
+The landing page for when users first visit the site. Users can open the sidebar to access more of the site.
+![image](https://user-images.githubusercontent.com/101376252/189555568-fc28ef18-7caa-4df2-8c70-b251f9fe28c4.png)
+
+![image](https://user-images.githubusercontent.com/101376252/189555613-6dd5b94f-2fb7-4049-9a22-af3c1c6d86ba.png)
 
 ## Login Page:
 Where users can sign in to their account.
@@ -40,11 +44,20 @@ Where users can create a new account.
 
 ## Recipes List Page:
 
+
 ## Individual Recipe Page:
+Gives more details on an individual recipe like its ingredients and instructions. Users can also leave reviews and read other user's reviews of the recipe on this page.
+![image](https://user-images.githubusercontent.com/101376252/189555858-4640cc93-2bd6-47ad-95aa-84dd17a28421.png)
+![image](https://user-images.githubusercontent.com/101376252/189555898-9c67c663-f67f-40b5-9f0a-94a7066bd2e8.png)
+![image](https://user-images.githubusercontent.com/101376252/189555985-40a10d38-ca86-4761-8c2d-e3e3ec787b33.png)
 
 ## Edit Review Modal:
+Clicking on the pencil of your own review opens up a modal that allows you to edit it.
+![image](https://user-images.githubusercontent.com/101376252/189556037-5fee2b89-2b30-4766-a5f0-e7bb3d0bf8c8.png)
 
 ## Post Recipe Page:
+Where users can post new recipes.
+![image](https://user-images.githubusercontent.com/101376252/189556073-9555b72e-13f8-4620-bd25-7f9f990a543c.png)
 
 ## Edit Recipe Page:
 
