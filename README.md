@@ -28,6 +28,29 @@ Visit the site here: [Top Recipes](https://toprecipes.herokuapp.com/)
 - [Frontend Routes](https://github.com/ayang740/top-recipes/wiki/Frontend-Routes)
 - [Wire Frames](https://github.com/ayang740/top-recipes/wiki/Wire-Frames)
 
+## Splash Page:
+
+## Login Page:
+Where users can sign in to their account.
+![image](https://user-images.githubusercontent.com/101376252/189555456-3ae8c2d7-0c7c-42e2-98d5-33318f784182.png)
+
+## Sign Up Page:
+Where users can create a new account.
+![image](https://user-images.githubusercontent.com/101376252/189555495-46486b1c-0e9b-4f60-81eb-9111f6d77980.png)
+
+## Recipes List Page:
+
+## Individual Recipe Page:
+
+## Edit Review Modal:
+
+## Post Recipe Page:
+
+## Edit Recipe Page:
+
+
+
+
 ## Future Features:
 - Allow users to save recipes into their recipe box
 - Allow users to create shopping lists of ingredients based on recipes they have saved
