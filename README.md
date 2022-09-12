@@ -43,7 +43,8 @@ Where users can create a new account.
 ![image](https://user-images.githubusercontent.com/101376252/189555495-46486b1c-0e9b-4f60-81eb-9111f6d77980.png)
 
 ## Recipes List Page:
-
+Where users can see all the recipes that have been posted.
+![image](https://user-images.githubusercontent.com/101376252/189556197-6bab27af-03bf-4335-a26b-c33026c6fec4.png)
 
 ## Individual Recipe Page:
 Gives more details on an individual recipe like its ingredients and instructions. Users can also leave reviews and read other user's reviews of the recipe on this page.
@@ -60,9 +61,8 @@ Where users can post new recipes.
 ![image](https://user-images.githubusercontent.com/101376252/189556073-9555b72e-13f8-4620-bd25-7f9f990a543c.png)
 
 ## Edit Recipe Page:
-
-
-
+Where users can edit their recipes
+![image](https://user-images.githubusercontent.com/101376252/189556185-48f285d1-9c29-4796-abe9-504cb4531f6e.png)
 
 ## Future Features:
 - Allow users to save recipes into their recipe box
