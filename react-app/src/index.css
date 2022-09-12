@@ -3,6 +3,10 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 button:hover {
     cursor: pointer;
 }

@@ -9,10 +9,12 @@ export default function RecipeList() {
         window.scrollTo(0,0)
     },[])
     return (
-        <div className="recipe-list-container">
-            {allRecipes && allRecipes.map(recipe => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
+        <div className="recipe-list-wrapper">
+            <div className="recipe-list-container">
+                {allRecipes && allRecipes.map(recipe => (
+                    <RecipeCard key={recipe.id} recipe={recipe} />
+                ))}
+            </div>
         </div>
     )
 }
