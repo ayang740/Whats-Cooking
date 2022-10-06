@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom'
+import './search.css'
 
 export default function Search() {
 
@@ -14,9 +15,12 @@ export default function Search() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <FaSearch></FaSearch>
+            <div className='search-input-wrapper'>
+                <div className='search-symbol'>
+                    <FaSearch className='search-symbol'></FaSearch>
+                </div>
                 <input 
+                    className='search-input'
                     type='text'
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
