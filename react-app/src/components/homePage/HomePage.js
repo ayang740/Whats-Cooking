@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
+import Search from "../search/Search"
 import './homepage.css'
 
 export default function HomePage() {
@@ -20,6 +21,7 @@ export default function HomePage() {
                 <div className="home-page-header-title">
                     Welcome to Top Recipes
                 </div>
+                <Search />
             </div>
             <div className="newest-recipes-wrapper">
                 <div className="newest-recipes-title">Our Newest Recipes</div>
