@@ -1,5 +1,16 @@
 .recipe-list-wrapper {
     height: 100vh;
+    width: 100%;
+}
+
+.search-container {
+    height: 5%;
+    width: 100%;
+    background-color: rgb(30, 30, 30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3%;
 }
 .recipe-list-container {
     width: 100%;
@@ -8,7 +19,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-top: 5%;
+    padding-top: 2%;
     padding-left: 5%;
     padding-right: 5%;
     padding-bottom: 5%;
