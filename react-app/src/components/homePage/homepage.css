@@ -10,6 +10,7 @@
     height: 70%;
     padding: 15% 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-image: url("https://img1.10bestmedia.com/Images/Photos/379581/GettyImages-477756915_54_990x660.jpg");
