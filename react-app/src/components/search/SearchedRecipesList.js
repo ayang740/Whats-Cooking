@@ -20,9 +20,14 @@ export default function SearchedRecipesList() {
                 <Search />
             </div>
             <div className="recipe-list-container">
-                {searchedRecipes && searchedRecipes.map(recipe => (
+                {searchedRecipes.length > 0 && searchedRecipes.map(recipe => (
                     <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
+                {searchedRecipes.length < 1 &&
+                (
+                <div className="no-recipes-search">No recipes found, please try another search...</div>
+                )
+                }
             </div>
         </div>
     )
