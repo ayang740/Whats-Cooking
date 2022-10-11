@@ -11,6 +11,7 @@ export default function Search() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         history.push(`/recipes/searched/${searchInput.toLowerCase()}`)
+        setSearchInput("")
     }
 
     return (
