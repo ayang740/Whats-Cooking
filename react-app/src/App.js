@@ -15,6 +15,7 @@ import RecipeEdit from './components/recipes/RecipeEdit';
 import HomePage from './components/homePage/HomePage';
 import NotFound from './components/notFoundPage/NotFound';
 import SearchedRecipesList from './components/search/SearchedRecipesList';
+import SavedRecipes from './components/savedRecipes/SavedRecipes';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -60,6 +61,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/recipes/searched/:search' exact={true}>
           <SearchedRecipesList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/recipes/saved' exact={true}>
+          <SavedRecipes />
         </ProtectedRoute>
         <Route>
           <NotFound />
