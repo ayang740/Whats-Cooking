@@ -8,6 +8,12 @@ recipe_ingredient = db.table('recipe_ingredient',
     db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredients.id'))
 )
 
+saved_recipes = db.Table(
+    'saved-recipes',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+)
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -144,3 +150,4 @@ class Review(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
+
