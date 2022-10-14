@@ -62,7 +62,7 @@ function App() {
         <ProtectedRoute path='/recipes/searched/:search' exact={true}>
           <SearchedRecipesList />
         </ProtectedRoute>
-        <ProtectedRoute path='/recipes/saved' exact={true}>
+        <ProtectedRoute path='/saved_recipes' exact={true}>
           <SavedRecipes />
         </ProtectedRoute>
         <Route>
