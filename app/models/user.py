@@ -10,6 +10,7 @@ recipe_ingredient = db.table('recipe_ingredient',
 
 saved_recipes = db.Table(
     'saved-recipes',
+    db.Model.metadata,
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
@@ -47,6 +48,7 @@ class User(db.Model, UserMixin):
     # RELATIONSHIPS
     recipes = db.relationship('Recipe', back_populates='user', cascade='all, delete')  # User can have many recipes
     user_reviews = db.relationship('Review', back_populates='user', cascade='all, delete')  # User can have many reviews
+    user_saved_recipes = db.relationship('Recipe', secondary=saved_recipes, back_populates='saved_recipes')
     
 
 class Recipe(db.Model):
@@ -68,6 +70,7 @@ class Recipe(db.Model):
     ingredients = db.relationship('Ingredient', back_populates='recipe_ingredient', cascade='all, delete')  # Recipe can have many ingredients
     instructions = db.relationship('Instruction', back_populates='recipe_instruction', cascade='all, delete')  # Recipe can have many instructions
     reviews = db.relationship('Review', back_populates='recipe_reviews', cascade='all, delete') # Recipe can have many reviews
+    saved_recipes = db.relationship('User', secondary=saved_recipes, back_populates='user_saved_recipes')
     
     def post_to_dict(self):
         return {
