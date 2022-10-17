@@ -11,8 +11,8 @@ recipe_ingredient = db.table('recipe_ingredient',
 saved_recipes = db.Table(
     'saved-recipes',
     db.Model.metadata,
-    db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id')),
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
 )
 
 class User(db.Model, UserMixin):

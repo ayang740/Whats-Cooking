@@ -234,3 +234,18 @@ def delete_recipe(id):
     db.session.commit()
     return {'message': 'Successfully deleted'}
 
+#save/unsave recipe
+@recipe_routes.post('/<int:id>/save')
+@login_required
+def save_unsave_a_recipe(id):
+    recipe = Recipe.query.get(id)
+    if current_user not in recipe.saved_recipes:
+        recipe.saved_recipes.append(current_user)
+        db.session.commit()
+    else:
+        recipe.saved_recipes.remove(current_user)
+        db.session.commit()
+    return { 'recipe': recipe.post_to_dict()}
+
+
+
