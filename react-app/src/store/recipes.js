@@ -2,6 +2,7 @@ const LOAD_RECIPES = '/recipes/all'
 const NEW_RECIPE = '/recipes/new'
 const UPDATE_RECIPE = '/recipes/update'
 const DELETE_RECIPE = '/recipes/delete'
+const SAVE_RECIPE = '/recipes/save'
 
 const loadRecipes = (recipes) => ({
     type: LOAD_RECIPES,
@@ -18,6 +19,11 @@ const updateRecipe = (recipe) => ({
 const deleteRecipe = (id) => ({
     type: DELETE_RECIPE,
     id
+})
+
+const saveRecipe = (data) => ({
+    type: SAVE_RECIPE,
+    data
 })
 
 export const getAllRecipes = () => async (dispatch) => {
@@ -77,6 +83,21 @@ export const removeRecipe = (id) => async dispatch => {
     }
 };
 
+export const savingRecipe = (recipeId, userId) => async dispatch => {
+    const response = await fetch(`/api/recipes/${recipeId}/likes`, {
+        method: 'POST',
+        headers: { "Content-Type": 'application/json' },
+        body: {
+            userId
+        }
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(saveRecipe(data))
+        return data
+    }
+}
+
 const initialState = { normalizedRecipes: {} }
 
 export default function recipesReducer(state = initialState, action) {
@@ -99,6 +120,10 @@ export default function recipesReducer(state = initialState, action) {
         case DELETE_RECIPE:
             newState = JSON.parse(JSON.stringify(state))
             delete newState.normalizedRecipes[action.id]
+            return newState
+        case SAVE_RECIPE:
+            newState = JSON.parse(JSON.stringify(state))
+            newState.normalizedRecipes[action.data.recipe.id] = action.data.recipe
             return newState
         default:
             return state
