@@ -43,6 +43,13 @@ const NavBar = () => {
               </NavLink>
             </li>
           }
+          {sessionUser &&
+            <li className='sidebar-item'>
+              <NavLink className='sidebar-item-link' to='/saved_recipes' exact={true}>
+                <div onClick={showSidebar}>MY SAVED RECIPES</div>
+              </NavLink>
+            </li>
+          }
           {!sessionUser &&
             <li className='sidebar-item'>
               <NavLink className='sidebar-item-link' to='/login' exact={true} activeClassName='active'>

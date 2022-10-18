@@ -88,7 +88,8 @@ class Recipe(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'ingredients': [ingredient.ingredient_to_dict() for ingredient in self.ingredients],
-            'instructions': [instruction.instruction_to_dict() for instruction in self.instructions]
+            'instructions': [instruction.instruction_to_dict() for instruction in self.instructions],
+            'userSaves': [user.id for user in self.saved_recipes],
         }
 
 class Ingredient(db.Model):
