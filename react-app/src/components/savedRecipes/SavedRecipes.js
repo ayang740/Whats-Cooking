@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 
+
 export default function SavedRecipes() {
+
     return (
         <div>
             <div>My Saved Recipes</div>

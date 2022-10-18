@@ -5,6 +5,7 @@ import './recipes.css'
 import ReviewList from '../reviews/ReviewList';
 import ReviewPost from '../reviews/ReviewPost';
 import { useEffect, useState } from 'react';
+import SaveRecipe from '../savedRecipes/SaveRecipe';
 
 export default function SingleRecipe() {
     const { recipeId } = useParams()
@@ -37,6 +38,7 @@ export default function SingleRecipe() {
                 <div className='single-recipe-header-left'>
                     <div className='single-recipe-header-name'>{recipe.name}</div>
                     <div className='single-recipe-header-author'>BY {(recipe.user.name).toUpperCase()}</div>
+                    <SaveRecipe recipeId={recipeId}/>
                     {sessionUser?.id === recipe?.userId &&
                         (
                             <div className='single-recipe-buttons'>

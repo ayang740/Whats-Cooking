@@ -84,7 +84,7 @@ export const removeRecipe = (id) => async dispatch => {
 };
 
 export const savingRecipe = (recipeId, userId) => async dispatch => {
-    const response = await fetch(`/api/recipes/${recipeId}/likes`, {
+    const response = await fetch(`/api/recipes/${recipeId}/save`, {
         method: 'POST',
         headers: { "Content-Type": 'application/json' },
         body: {
