@@ -38,7 +38,11 @@ export default function SingleRecipe() {
                 <div className='single-recipe-header-left'>
                     <div className='single-recipe-header-name'>{recipe.name}</div>
                     <div className='single-recipe-header-author'>BY {(recipe.user.name).toUpperCase()}</div>
-                    <SaveRecipe recipeId={recipeId}/>
+                    {sessionUser?.id &&
+                        (
+                            <SaveRecipe recipeId={recipeId}/>
+                        )
+                    }
                     {sessionUser?.id === recipe?.userId &&
                         (
                             <div className='single-recipe-buttons'>
